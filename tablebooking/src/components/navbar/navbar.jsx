@@ -1,4 +1,6 @@
 
+import { IoIosArrowDown } from "react-icons/io";
+import profile from '../../assets/112.jpg';
 
 const Navbar = () => {
   
@@ -12,12 +14,17 @@ const Navbar = () => {
                   </p>
                 </div>
                  {/* menu section */}
-                 <div>
-                  <ul className="flex gap-8">
-                    <li className="hover:border border-b-2 border-primary uppercase">HOME</li>
-                    <li className="hover:border border-b-2 border-primary uppercase">MENU</li>
-                    <li className="hover:border border-b-2 border-primary uppercase">ABOUT</li>
+                 <div className="flex justify-center items-center gap-6">
+                  <ul className=" gap-8 hidden sm:flex">
+                    <li className="hover:border hover:border-b-4 border-primary uppercase">HOME</li>
+                    <li className="hover:border hover:border-b-4 border-primary uppercase">MENU</li>
+                    <li className="hover:border hover:border-b-4 border-primary uppercase">ABOUT</li>
                   </ul>
+                 </div>
+                 <div className="flex gap-4 items-center"> 
+                  {/* login section */}
+                  <img src={profile} alt="profile pic" className="w-10 rounded-full" />
+                  <IoIosArrowDown />
                  </div>
               </div>
             </div>
