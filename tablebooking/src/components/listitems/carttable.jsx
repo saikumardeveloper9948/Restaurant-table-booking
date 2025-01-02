@@ -46,7 +46,7 @@ const Cart = ({ cartItems, onQuantityChange ,initialCartItems  }) => {
                         <th>Item</th>
                         <th>Quantity</th>
                         <th>Price</th>
-                        <th>Total</th>
+                        {/* <th>Total</th> */}
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -64,7 +64,7 @@ const Cart = ({ cartItems, onQuantityChange ,initialCartItems  }) => {
                                 />
                             </td>
                             <td>Rs.{item.price.toFixed(2)}/-</td>
-                            <td>Rs.{(item.price * (counts[index] || 1)).toFixed(2)}/-</td>
+                            {/* <td>Rs.{(item.price * (counts[index] || 1)).toFixed(2)}/-</td>` */}
                             <td>
                                 <button
                                     onClick={() => handleDeleteItem(index)}
