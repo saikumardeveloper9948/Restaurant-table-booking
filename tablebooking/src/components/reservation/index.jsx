@@ -39,7 +39,7 @@ class Reservation extends React.Component {
                             </div>
 
                             <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
-                            <div className="space-y-1.5">
+                                <div className="space-y-1.5">
                                     <label htmlFor="Date&Time" className="text-base text-neutral-400 font-normal-block">
                                         Time & Date 
                                     </label>
@@ -63,8 +63,28 @@ class Reservation extends React.Component {
 
                                     </select>
                                     {/* <input type="email" id="email" placeholder="e.g. name@gmail.com" className="w-full h-12 border-neutral-400/40 bg-neutral-900/5 px-3 rounded-lg text-base text-neutral-300 placeholder:text-neutral-500/90 outline-none focus:bg-yellow-600/5 focus:border-yellow-500 ease-in-out duration-300" /> */}
+                                </div>  
+                            </div>
+                            <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
+                            <div className="space-y-1.5">
+                                    <label htmlFor="tables" className="text-base text-neutral-400 font-normal-block">
+                                        Reserve Table
+                                    </label>
+                                    <select name="tables" id="tables"  className="w-full h-12 border-neutral-400/40 bg-neutral-900/5 px-3 rounded-lg text-base text-neutral-300 placeholder:text-neutral-500/90 outline-none focus:bg-yellow-600/5 focus:border-yellow-500 ease-in-out duration-300">
+                                        <option value="1">1</option>
+                                        <option value="2" disabled>2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5"disabled>5</option>
+                                        <option value="6">6</option>
+                                        <option value="7"disabled>7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10" disabled>10</option>
+
+                                    </select>
+                                    {/* <input type="email" id="email" placeholder="e.g. name@gmail.com" className="w-full h-12 border-neutral-400/40 bg-neutral-900/5 px-3 rounded-lg text-base text-neutral-300 placeholder:text-neutral-500/90 outline-none focus:bg-yellow-600/5 focus:border-yellow-500 ease-in-out duration-300" /> */}
                                 </div>
-                                
                             </div>
 
                             <div className="space-y-1.5">

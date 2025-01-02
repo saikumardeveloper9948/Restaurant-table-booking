@@ -5,9 +5,10 @@ import Items from './components/section2/toplist';
 import Bgimage from "./assets/2.png"
 import Banner from "./components/banner/banner"
 import Categories from "./components/listitems/categories"
-import FoodItemsSearch from "./components/foodsearch/search"
+
 import Reservation from "./components/reservation/index"
 import Services from "./components/Services/services"
+import Loginsignup from "./components/loginsignup/signup"
 
 
 
@@ -22,11 +23,11 @@ const App = () => {
   return <div style={bgStyle} className='overflow-x-hidden'>
    <div className='min-h-screen bg-white/50 backdrop-blur-3xl'>
    <Navbar/>
+   <Loginsignup/>
     <Hero/>
     <Items/>
     <Banner/>
     <Categories/>
-    {/* <FoodItemsSearch/> */}
     <Reservation/>
     <Services/>
    </div>
