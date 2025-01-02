@@ -5,7 +5,11 @@ import Items from './components/section2/toplist';
 import Bgimage from "./assets/2.png"
 import Banner from "./components/banner/banner"
 import Categories from "./components/listitems/categories"
+import FoodItemsSearch from "./components/foodsearch/search"
+import Reservation from "./components/reservation/index"
 import Services from "./components/Services/services"
+
+
 
 const bgStyle={
   backgroundImage: `url(${Bgimage})`,
@@ -22,6 +26,8 @@ const App = () => {
     <Items/>
     <Banner/>
     <Categories/>
+    {/* <FoodItemsSearch/> */}
+    <Reservation/>
     <Services/>
    </div>
   </div>

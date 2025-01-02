@@ -1,299 +1,545 @@
 import React from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Cart from './carttable';
+import Modal from 'react-bootstrap/Modal'; 
 
 
 const foodItems = [
   {
     category: "Vegetarian",
     items: [
+      // Existing Items
       {
         name: "Paneer Butter Masala",
-        price: 250,
-        description: "Cottage cheese in a creamy tomato gravy",
         image: "https://img.freepik.com/premium-photo/paneer-butter-masala-white-plate-white-background_864588-11304.jpg",
         rating: "⭐⭐⭐⭐⭐",
+        description: "Cottage cheese in a creamy tomato gravy",
+        price: 250,
         quantity: 20,
-        serves: 40, // Serves 2 people per unit
+        serves: 40,
       },
       {
         name: "Aloo Gobi",
-        price: 180,
-        description: "Potato and cauliflower stir-fried with spices",
         image: "https://static.vecteezy.com/system/resources/thumbnails/036/289/645/small_2x/ai-generated-aloo-gobi-with-transparent-background-ai-png.png",
         rating: "⭐⭐⭐⭐✰",
+        description: "Potato and cauliflower stir-fried with spices",
+        price: 180,
         quantity: 25,
-        serves: 50, // Serves 2 people per unit
+        serves: 50,
       },
       {
         name: "Vegetable Biryani",
-        price: 220,
-        description: "Aromatic rice cooked with vegetables and spices",
         image: "https://wallpapers.com/images/high/colorful-vegetable-biryani-dish-7iy413ch73lgcd67-2.png",
         rating: "⭐⭐⭐⭐⭐",
+        description: "Aromatic rice cooked with vegetables and spices",
+        price: 220,
         quantity: 30,
-        serves: 90, // Serves 3 people per unit
+        serves: 90,
       },
       {
         name: "Palak Paneer",
-        price: 240,
-        description: "Cottage cheese in a creamy spinach curry",
         image: "https://img.freepik.com/premium-photo/palak-paneer-image-white-background_762785-259801.jpg",
         rating: "⭐⭐⭐⭐✰",
+        description: "Cottage cheese in a creamy spinach curry",
+        price: 240,
         quantity: 15,
-        serves: 30, // Serves 2 people per unit
+        serves: 30,
       },
       {
         name: "Dal Tadka",
-        price: 160,
-        description: "Yellow lentils tempered with spices",
         image: "https://png.pngtree.com/png-vector/20240818/ourmid/pngtree-whole-yellow-lentil-dal-tadka-or-fry-with-jeera-png-image_13528759.png",
         rating: "⭐⭐⭐⭐⭐",
+        description: "Yellow lentils tempered with spices and herbs",
+        price: 160,
         quantity: 40,
-        serves: 80, // Serves 2 people per unit
+        serves: 80,
+      },
+      // Additional Items
+      {
+        name: "Chana Masala",
+        image: "https://tse4.mm.bing.net/th?id=OIP.Kgm3OU51i_LSy0Q06KWErgAAAA&pid=Api&P=0&h=180",
+        rating: "⭐⭐⭐⭐✰",
+        description: "Spicy chickpea curry cooked in a tangy tomato sauce",
+        price: 190,
+        quantity: 20,
+        serves: 40,
+      },
+      {
+        name: "Bhindi Masala",
+        image: "https://static.vecteezy.com/system/resources/previews/027/144/456/original/tasty-okra-or-bhindi-on-background-free-png.png",
+        rating: "⭐⭐⭐⭐⭐",
+        description: "Okra stir-fried with onions and spices gives a nice crunch",
+        price: 170,
+        quantity: 15,
+        serves: 30,
+      },
+      {
+        name: "Paneer Tikka Masala",
+        image: "https://img.freepik.com/premium-photo/indian-paneer-tikka-masala-curry-with-cooked-rice-selective-focus-white-background_57665-1803.jpg",
+        rating: "⭐⭐⭐⭐⭐",
+        description: "Grilled cottage cheese cooked in a spicy gravy",
+        price: 260,
+        quantity: 20,
+        serves: 40,
       },
     ],
   },
   {
     category: "Non-Vegetarian",
     items: [
+      // Existing Items
       {
         name: "Butter Chicken",
-        price: 300,
-        description: "Chicken cooked in a rich creamy gravy",
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUYDxfn9UgUUtMvjcvZmS9iKOcnUa5ZYYdFA&s",
         rating: "⭐⭐⭐⭐⭐",
+        description: "Chicken cooked in a rich creamy gravy will make you fall in love",
+        price: 300,
         quantity: 25,
-        serves: 50, // Serves 2 people per unit
+        serves: 50,
       },
       {
         name: "Mutton Rogan Josh",
-        price: 350,
-        description: "Slow-cooked lamb curry with spices",
         image: "https://cdn.create.vista.com/api/media/small/629454412/stock-photo-indian-style-mutton-gosht-masala-indian-lamb-meat-rogan-josh",
         rating: "⭐⭐⭐⭐✰",
+        description: "Slow-cooked lamb curry with spices and herbs",
+        price: 350,
         quantity: 10,
-        serves: 20, // Serves 2 people per unit
+        serves: 20,
       },
       {
         name: "Chicken Biryani",
-        price: 280,
-        description: "Fragrant rice cooked with chicken and spices",
         image: "https://i.pinimg.com/474x/67/e7/ff/67e7ff9859d6c9df0c30b897bf901e1d.jpg",
         rating: "⭐⭐⭐⭐⭐",
+        description: "Fragrant rice cooked with chicken and spices",
+        price: 280,
         quantity: 35,
-        serves: 105, // Serves 3 people per unit
+        serves: 105,
       },
       {
         name: "Fish Curry",
-        price: 320,
-        description: "Fish cooked in a tangy and spicy curry",
         image: "https://www.priyom.in/wp-content/uploads/2022/05/recipe-3-480x270.png",
         rating: "⭐⭐⭐⭐✰",
+        description: "Fish cooked in a tangy, spicy curry and served with rice",
+        price: 320,
         quantity: 20,
-        serves: 40, // Serves 2 people per unit
+        serves: 40,
       },
       {
         name: "Egg Curry",
-        price: 180,
-        description: "Boiled eggs in a flavorful curry",
         image: "https://img.freepik.com/premium-photo/top-view-egg-curry-white-background_601128-2167.jpg",
         rating: "⭐⭐⭐⭐⭐",
-        quantity: 50,
-        serves: 100, // Serves 2 people per unit
-      },
-    ],
-  },
-  {
-    category: "Noodles",
-    items: [
-      {
-        name: "Hakka Noodles",
-        price: 200,
-        description: "Stir-fried noodles with vegetables",
-        image: "https://thumbs.dreamstime.com/b/chilli-garlic-hakka-noodles-black-bowl-isolated-white-background-indo-chinese-vegetarian-cuisine-dish-indian-veg-187539807.jpg",
-        rating: "⭐⭐⭐⭐✰",
-        quantity: 30,
-        serves: 90, // Serves 3 people per unit
-      },
-      {
-        name: "Chicken Noodles",
-        price: 250,
-        description: "Stir-fried noodles with chicken and spices",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSV03E8fhtYGPtR-VCf3AY035Ox9JBXvUdvQ&s",
-        rating: "⭐⭐⭐⭐⭐",
-        quantity: 25,
-        serves: 75, // Serves 3 people per unit
-      },
-      {
-        name: "Egg Noodles",
-        price: 230,
-        description: "Noodles stir-fried with eggs and veggies",
-        image: "https://png.pngtree.com/png-vector/20240123/ourmid/pngtree-stir-fried-noodles-isolated-png-image_11468959.png",
-        rating: "⭐⭐⭐⭐⭐",
-        quantity: 20,
-        serves: 60, // Serves 3 people per unit
-      },
-      {
-        name: "Chili Garlic Noodles",
-        price: 220,
-        description: "Spicy noodles with a chili garlic sauce",
-        image: "https://myblacktree.com/cdn/shop/files/plain-chow-mein-02-removebg-preview.png?v=1691150653",
-        rating: "⭐⭐⭐⭐✰",
-        quantity: 30,
-        serves: 90, // Serves 3 people per unit
-      },
-      {
-        name: "Schezwan Noodles",
-        price: 240,
-        description: "Noodles tossed in a spicy Schezwan sauce",
-        image: "https://png.pngtree.com/png-vector/20240309/ourmid/pngtree-schezwan-noodles-or-szechuan-vegetable-png-image_11919080.png",
-        rating: "⭐⭐⭐⭐✰",
-        quantity: 35,
-        serves: 105, // Serves 3 people per unit
-      },
-    ],
-  },
-  {
-    category: "Desserts",
-    items: [
-      {
-        name: "Gulab Jamun",
-        price: 120,
-        description: "Sweet dumplings soaked in sugar syrup",
-        image: "https://static.vecteezy.com/system/resources/thumbnails/049/500/928/small_2x/gulab-jamun-in-a-plate-isolated-on-transparent-background-free-png.png",
-        rating: "⭐⭐⭐⭐⭐",
-        quantity: 50,
-        serves: 100, // Serves 2 people per unit
-      },
-      {
-        name: "Ice Cream Sundae",
-        price: 150,
-        description: "Ice cream topped with nuts and chocolate syrup",
-        image: "data:image/jpeg;base64,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",
-        rating: "⭐⭐⭐⭐⭐",
-        quantity: 40,
-        serves: 40, // Serves 1 person per unit
-      },
-      {
-        name: "Brownie with Ice Cream",
+        description: "Boiled eggs in a flavorful curry with spices",
         price: 180,
-        description: "Warm brownie served with vanilla ice cream",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJEeWtM5ujtlVD5jmcAg0jt3NazgQPPCqRBw&s",
+        quantity: 50,
+        serves: 100,
+      },
+      // Additional Items
+      {
+        name: "Tandoori Chicken",
+        image: "https://angtnonions.com/wp-content/uploads/2022/02/Tandouri-Chicken.png",
         rating: "⭐⭐⭐⭐⭐",
+        description: "Marinated chicken roasted in a tandoor oven and taste is good" ,
+        price: 320,
         quantity: 20,
-        serves: 20, // Serves 1 person per unit
+        serves: 40,
       },
       {
-        name: "Rasmalai",
-        price: 140,
-        description: "Soft cheese discs in flavored milk",
-        image: "data:image/jpeg;base64,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",
+        name: "Prawn Masala",
+        image: "https://png.pngtree.com/png-vector/20240717/ourmid/pngtree-goan-prawns-or-shrimp-curry-zinga-masala-also-known-as-kolambi-png-image_13053662.png",
         rating: "⭐⭐⭐⭐✰",
-        quantity: 25,
-        serves: 50, // Serves 2 people per unit
-      },
-      {
-        name: "Cheesecake",
-        price: 200,
-        description: "Creamy cheesecake with a biscuit base",
-        image: "https://png.pngtree.com/png-vector/20241102/ourmid/pngtree-slice-of-strawberry-cheesecake-topped-with-fresh-berries-png-image_14223080.png",
-        rating: "⭐⭐⭐⭐⭐",
+        description: "Prawns cooked in a spicy and tangy gravy",
+        price: 360,
         quantity: 15,
-        serves: 15, // Serves 1 person per unit
+        serves: 30,
+      },
+      {
+        name: "Lamb Kebabs",
+        image: "https://png.pngtree.com/png-clipart/20220927/original/pngtree-kebab-fresh-lamb-png-image_8637537.png",
+        rating: "⭐⭐⭐⭐⭐",
+        description: "Juicy lamb kebabs grilled to perfection and served with a side of mint chutney",
+        price: 300,
+        quantity: 10,
+        serves: 20,
       },
     ],
   },
-  {
-    category: "Mocktails",
-    items: [
-      {
-        name: "Virgin Mojito",
-        price: 120,
-        description: "Refreshing lime and mint mocktail",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD-1c5QRXfn8z6Sdlc94LkSacO_tRgk7e0zw&s",
-        rating: "⭐⭐⭐⭐✰",
-        quantity: 35,
-        serves: 35, // Serves 1 person per unit
-      },
-      {
-        name: "Pina Colada",
-        price: 140,
-        description: "Pineapple and coconut blended drink",
-        image: "https://png.pngtree.com/png-vector/20240529/ourmid/pngtree-pina-colada-with-pineapple-slice-and-cherry-png-image_12511808.png",
-        rating: "⭐⭐⭐⭐✰",
-        quantity: 30,
-        serves: 30, // Serves 1 person per unit
-      },
-      {
-        name: "Blue Lagoon",
-        price: 150,
-        description: "Fizzy blue curacao mocktail",
-        image: "https://static.vecteezy.com/system/resources/previews/047/585/492/non_2x/fresh-blue-lagoon-cocktail-isolated-on-transparent-background-png.png",
-        rating: "⭐⭐⭐⭐⭐",
-        quantity: 25,
-        serves: 25, // Serves 1 person per unit
-      },
-      {
-        name: "Fruit Punch",
-        price: 130,
-        description: "A mix of tropical fruit juices",
-        image: "https://png.pngtree.com/png-vector/20240529/ourmid/pngtree-fruit-punch-in-a-tall-glass-with-floating-slices-png-image_12511779.png",
-        rating: "⭐⭐⭐⭐⭐",
-        quantity: 40,
-        serves: 40, // Serves 1 person
-      },
-    ],
-  },
+{
+  category: "Noodles",
+  items: [
+    // Existing Items
+    {
+      name: "Hakka Noodles",
+      image: "https://thumbs.dreamstime.com/b/chilli-garlic-hakka-noodles-black-bowl-isolated-white-background-indo-chinese-vegetarian-cuisine-dish-indian-veg-187539807.jpg",
+      rating: "⭐⭐⭐⭐✰",
+      description: "Stir-fried noodles with vegetables and spices",
+      price: 200,
+      quantity: 30,
+      serves: 90,
+    },
+    {
+      name: "Chicken Noodles",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSV03E8fhtYGPtR-VCf3AY035Ox9JBXvUdvQ&s",
+      rating: "⭐⭐⭐⭐⭐",
+      description: "Stir-fried noodles with chicken and spices",
+      price: 250,
+      quantity: 25,
+      serves: 75,
+    },
+    {
+      name: "Egg Noodles",
+      image: "https://png.pngtree.com/png-vector/20240123/ourmid/pngtree-stir-fried-noodles-isolated-png-image_11468959.png",
+      rating: "⭐⭐⭐⭐⭐",
+      description: "Noodles stir-fried with eggs, veggies and spices",
+      price: 230,
+      quantity: 20,
+      serves: 60,
+    },
+    {
+      name: "Chili Garlic Noodles",
+      image: "https://myblacktree.com/cdn/shop/files/plain-chow-mein-02-removebg-preview.png?v=1691150653",
+      rating: "⭐⭐⭐⭐✰",
+      description: "Spicy noodles with a chili garlic sauce and veggies",
+      price: 220,
+      quantity: 30,
+      serves: 90,
+    },
+    {
+      name: "Schezwan Noodles",
+      image: "https://png.pngtree.com/png-vector/20240309/ourmid/pngtree-schezwan-noodles-or-szechuan-vegetable-png-image_11919080.png",
+      rating: "⭐⭐⭐⭐✰",
+      description: "Noodles tossed in a spicy Schezwan sauce",
+      price: 240,
+      quantity: 35,
+      serves: 105,
+    },
+    // Additional Items
+    {
+      name: "Thai Rice Noodles",
+      image: "https://png.pngtree.com/png-vector/20240206/ourmid/pngtree-pad-thai-thailand-cuisine-delicious-noodle-food-painting-png-image_11666229.png",
+      rating: "⭐⭐⭐⭐⭐",
+      description: "Flat noodles with a hint of coconut milk and Thai spices",
+      price: 260,
+      quantity: 20,
+      serves: 60,
+    },
+    {
+      name: "Yakisoba Noodles",
+      image: "data:image/jpeg;base64,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",
+      rating: "⭐⭐⭐⭐✰",
+      description: "Japanese-style stir-fried noodles with veggies and soy sauce",
+      price: 280,
+      quantity: 15,
+      serves: 45,
+    },
+    {
+      name: "Ramen Noodles",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR88pXk2Gqh1TM0ba3ZCN2iSluS_WrqiJi1Xg&s",
+      rating: "⭐⭐⭐⭐⭐",
+      description: "Hot and comforting ramen bowl with rich broth and toppings",
+      price: 300,
+      quantity: 25,
+      serves: 75,
+    },
+  ],
+},
+{
+  category: "Desserts",
+  items: [
+    // Existing Items
+    {
+      name: "Gulab Jamun",
+      image: "https://static.vecteezy.com/system/resources/thumbnails/049/500/928/small_2x/gulab-jamun-in-a-plate-isolated-on-transparent-background-free-png.png",
+      rating: "⭐⭐⭐⭐⭐",
+      description: "Sweet dumplings soaked in sugar syrup and cardamom",
+      price: 120,
+      quantity: 50,
+      serves: 100,
+    },
+    {
+      name: "Ice Cream Sundae",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKu57nC0winScq6WXTt8n9ZcKlGqjL9Mt-AQ&s",
+      rating: "⭐⭐⭐⭐⭐",
+      description: "Ice cream topped with nuts and chocolate syrup",
+      price: 150,
+      quantity: 40,
+      serves: 40,
+    },
+    {
+      name: "Brownie with Ice Cream",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJEeWtM5ujtlVD5jmcAg0jt3NazgQPPCqRBw&s",
+      rating: "⭐⭐⭐⭐⭐",
+      description: "Warm brownie served with vanilla ice cream",
+      price: 180,
+      quantity: 20,
+      serves: 20,
+    },
+    {
+      name: "Rasmalai",
+      image: "https://kummaleelala.com/wp-content/uploads/2024/08/Rasmalai-1-Cup.png",
+      rating: "⭐⭐⭐⭐✰",
+      description: "Soft cheese discs in flavored milk and nuts",
+      price: 140,
+      quantity: 25,
+      serves: 50,
+    },
+    {
+      name: "Cheesecake",
+      image: "https://img.pikbest.com/origin/10/41/12/60KpIkbEsTFeJ.png!sw800",
+      rating: "⭐⭐⭐⭐⭐",
+      description: "Creamy cheesecake with a biscuit base and fruit topping",
+      price: 200,
+      quantity: 15,
+      serves: 15,
+    },
+    // Additional Items
+    {
+      name: "Tiramisu",
+      image: "https://png.pngtree.com/png-vector/20240828/ourmid/pngtree-glass-of-tiramisu-garnished-with-mint-leaves-png-image_13653140.png",
+      rating: "⭐⭐⭐⭐⭐",
+      description: "Classic Italian coffee-flavored dessert and mascarpone cheese",
+      price: 220,
+      quantity: 10,
+      serves: 10,
+    },
+    {
+      name: "Mango Pudding",
+      image: "https://img.pikbest.com/origin/09/06/96/21ipIkbEsTuj9.png!sw800",
+      rating: "⭐⭐⭐⭐✰",
+      description: "Silky mango pudding with a creamy texture",
+      price: 140,
+      quantity: 30,
+      serves: 30,
+    },
+    {
+      name: "Fruit Custard",
+      image: "https://t3.ftcdn.net/jpg/09/57/47/44/360_F_957474415_T8kObsqH6RDm1h0fr1WP7dvmBOjDD8as.jpg",
+      rating: "⭐⭐⭐⭐⭐",
+      description: "Mixed fruits in a creamy custard base and nuts",
+      price: 160,
+      quantity: 20,
+      serves: 40,
+    },
+  ],
+},
+{
+  category: "Mocktails",
+  items: [
+    // Existing Items
+    {
+      name: "Virgin Mojito",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD-1c5QRXfn8z6Sdlc94LkSacO_tRgk7e0zw&s",
+      rating: "⭐⭐⭐⭐✰",
+      description: "Refreshing drink made with lime, mint, without any rum",
+      price: 120,
+      quantity: 35,
+      serves: 35,
+    },
+    {
+      name: "Pina Colada",
+      image: "https://png.pngtree.com/png-vector/20240529/ourmid/pngtree-pina-colada-with-pineapple-slice-and-cherry-png-image_12511808.png",
+      rating: "⭐⭐⭐⭐✰",
+      description: "Pineapple and coconut blended drink and a touch of sweetness",
+      price: 140,
+      quantity: 30,
+      serves: 30,
+    },
+    {
+      name: "Blue Lagoon",
+      image: "https://static.vecteezy.com/system/resources/previews/047/585/492/non_2x/fresh-blue-lagoon-cocktail-isolated-on-transparent-background-png.png",
+      rating: "⭐⭐⭐⭐⭐",
+      description: "Bright blue mocktail with a citrus twist and a touch of sweetness",
+      price: 150,
+      quantity: 25,
+      serves: 25,
+    },
+    {
+      name: "Fruit Punch",
+      image: "https://png.pngtree.com/png-vector/20240529/ourmid/pngtree-fruit-punch-in-a-tall-glass-with-floating-slices-png-image_12511779.png",
+      rating: "⭐⭐⭐⭐⭐",
+      description: "A mix of fruit juices with a sweet taste and a splash of lemon",
+      price: 130,
+      quantity: 40,
+      serves: 40,
+    },
+    // Additional Items
+    {
+      name: "Strawberry Lemonade",
+      image: "https://static.vecteezy.com/system/resources/thumbnails/048/409/410/small_2x/fruit-drink-isolated-on-transparent-background-free-png.png",
+      rating: "⭐⭐⭐⭐⭐",
+      description: "A tangy lemonade infused with strawberries and a touch of sweetness",
+      price: 130,
+      quantity: 30,
+      serves: 30,
+    },
+    {
+      name: "Cucumber Cooler",
+      image: "https://img.freepik.com/premium-photo/fresh-cucumber-mint-cooler-isolated-white-background_787273-76449.jpg?w=360",
+      rating: "⭐⭐⭐⭐✰",
+      description: "A refreshing mocktail with cucumber, lime, and mint",
+      price: 110,
+      quantity: 25,
+      serves: 25,
+    },
+    {
+      name: "Orange Sunset",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnORB1XaOO-tgHb4jdk-KxhjUf3dmLwaSPd4Fzrh3PONB5quS5SIRzWBrfgctuhxuWgdo&usqp=CAU",
+      rating: "⭐⭐⭐⭐⭐",
+      description: "Orange juice with a hint of grenadine for a sunset effect",
+      price: 140,
+      quantity: 20,
+      serves: 20,
+    },
+    {
+      name: "Minty Watermelon",
+      image: "https://i.pinimg.com/736x/55/a8/dd/55a8ddfeffdb235b17ebc9445f2000e0.jpg",
+      rating: "⭐⭐⭐⭐⭐",
+      description: "Watermelon juice with a cool mint flavor and a splash of lemon",
+      price: 120,
+      quantity: 40,
+      serves: 40,
+    },
+    {
+      name: "Apple Fizz",
+      image: "https://cdn.shakedeal.com/images/detailed/958/SDPAS0047400_cjp1-7p.png",
+      rating: "⭐⭐⭐⭐✰",
+      description: "Apple juice with soda and a dash of cinnamon",
+      price: 150,
+      quantity: 25,
+      serves: 25,
+    },
+    {
+      name: "Tropical Breeze",
+      image: "https://www.goodygoody.com/ccstore/v1/images/?source=/file/v2365625267149004147/products/37189.Tropical-Breeze-White-Rum_80O_1L.png&height=475&width=475",
+      rating: "⭐⭐⭐⭐⭐",
+      description: "A mix of tropical fruits like pineapple, passionfruit, and mango",
+      price: 160,
+      quantity: 30,
+      serves: 30,
+    },
+  ],
+},
 ];
+
+
+
 
 class Categories extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      searchQuery: '',
+      cartItems: [],
+      showModal: false,
+    };
   }
 
+  handleSearchChange = (event) => {
+    this.setState({ searchQuery: event.target.value });
+  };
+
+  addItemToCart = (item) => {
+    const { cartItems } = this.state;
+    const existingItem = cartItems.find((cartItem) => cartItem.name === item.name);
+
+    if (existingItem) {
+      const updatedCartItems = cartItems.map((cartItem) =>
+        cartItem.name === item.name
+          ? { ...cartItem, quantity: cartItem.quantity + 1 }
+          : cartItem
+      );
+      this.setState({ cartItems: updatedCartItems });
+    } else {
+      this.setState((prevState) => ({
+        cartItems: [...prevState.cartItems, { ...item, quantity: 1 }],
+      }));
+    }
+    this.setState({ showModal: true });
+  };
+
+  handleCloseModal = () => {
+    this.setState({ showModal: false });
+  };
+
+  removeItem = (index) => {
+    const newCartItems = this.state.cartItems.filter((_, i) => i !== index);
+    this.setState({ cartItems: newCartItems });
+  };
+
+  onQuantityChange = (index, newQuantity) => {
+    const updatedCartItems = [...this.state.cartItems];
+    updatedCartItems[index].quantity = newQuantity;
+    this.setState({ cartItems: updatedCartItems });
+  };
   render() {
+    const { searchQuery, cartItems, showModal } = this.state;
+
+    const filteredFoodItems = foodItems.flatMap(category =>
+      category.items.filter(item =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    );
+
     return (
       <div className="container">
         <div>
-          <h2 className="flex justify-center font-semibold  text-4xl py-4">
+          <h2 className="flex justify-center font-semibold text-4xl py-4">
             Choose What's In Your Mind
           </h2>
-          {foodItems.map((items, index)=>{
-            return(
-                // console.log(items.items)
-               < div key={index} className="container flex flex-wrap justify-center gap-6">
-                 {items.items.map((a,b)=>{
-                    return(
-                       <>
-                         
-                        <div key ={b} className=" py-2 ">
-                        <Card  style={{ width: '18rem', height:"22rem" }} >
-                        <Card.Img variant="top" src={a.image} className="h-36" />
-                        <Card.Body>
-                          <Card.Title>{a.name}</Card.Title>
-                          <Card.Text>{a.rating}</Card.Text>
-                          <Card.Text>{a.description}</Card.Text>
 
-                          <Button variant="primary">Add to Cart</Button>
-                        </Card.Body>
-                       </Card>
-                       
-                       </div>
-                        
-                       </>
-                    )
-                })}
-               </div>
+          {/* Search Input for Food Items */}
+          <input
+            type="text"
+            placeholder="Search for food items..."
+            value={searchQuery}
+            onChange={this.handleSearchChange}
+            className="form-control mb-4 px-10 container"
+          />
 
-
-    //          
-            )         
-          })}
+          {filteredFoodItems.length > 0 ? (
+            <div className="container flex flex-wrap justify-center gap-6">
+              {filteredFoodItems.map((item, index) => (
+                <div key={index} className="py-2">
+                  <Card className="w-auto h-auto max-w-xs rounded-3xl hover:scale-110 transition duration-150 cursor-pointer" style={{ width: '18rem', height: "22rem" }}>
+                    <Card.Img variant="top" src={item.image} className="h-36 w-auto p-0" />
+                    <Card.Body>
+                      <Card.Title>{item.name}</Card.Title>
+                      <Card.Text>{item.rating}</Card.Text>
+                      <Card.Text>{item.description}</Card.Text>
+                      <Button variant="primary" onClick={() => this.addItemToCart(item)}>Add Item</Button>
+                    </Card.Body>
+                  </Card>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>No food items found.</p>
+          )}
         </div>
+
+        {/* Modal for "Item Added to Cart" */}
+        <Modal show={showModal} onHide={this.handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Success</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Item added to cart!</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleCloseModal}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        <Cart cartItems={cartItems} 
+        handleRemoveItem={this.handleRemoveItem}
+        // onQuantityChange={onQuantityChange}
+        // removeItem={removeItem}
+        />
       </div>
     );
   }
 }
+
+
 
 export default Categories;

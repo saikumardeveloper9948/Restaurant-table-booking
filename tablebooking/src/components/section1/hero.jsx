@@ -1,6 +1,8 @@
-// import Carousel from "react-bootstrap/Carousel";
+import Carousel from "react-bootstrap/Carousel";
 // import Button from 'react-bootstrap/Button';
-
+import sandwich from '../../assets/sandwich.png';
+import pizza from '../../assets/pizza.png';
+import hero2 from '../../assets/hero2.png';
 import image1 from "../../assets/1.png";
 
 
@@ -266,44 +268,31 @@ const Hero = () => {
               <button className="primary-btn hover:scale-110 duration-200">Food Menu</button>
               <button className="secondary-btn text-black hover:scale-110  duration-200">Book Table </button>
             </div>
-          {/* <div className="booking">
-          <Button type="submit">Button</Button>
-            <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2">BOOK TABLE</button>
-          </div> */}
+      
 
         </div>
         {/* image section */}
         <div className="flex flex-col justify-center">
-        <img src={image1} alt="food" className=" animate-spin-slow img-shodow mx-auto "/>
+    
 
-          {/* <Carousel className="flex flex-col justify-center">
+          <Carousel className="flex flex-col justify-center mx-auto ">
             <Carousel.Item>
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_SMJO2vcLWdyfnp1JXe-PiD1Lx9d-JhuZEg&s" alt="First slide" />
-              <Carousel.Caption>
-                <h3>First slide label</h3>
-                <p>
-                  Nulla vitae elit libero, a pharetra augue mollis interdum.
-                </p>
-              </Carousel.Caption>
+              <img src={sandwich} alt="First slide" />
+           
             </Carousel.Item>
             <Carousel.Item>
-              <img src={image2} alt="Second slide" />
-              <Carousel.Caption>
-                <h3>Second slide label</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </Carousel.Caption>
+              <img src={pizza} alt="Second slide" />
+           
             </Carousel.Item>
             <Carousel.Item>
-              <img src={image3} alt="Third slide" />
-              <Carousel.Caption>
-                <h3>Third slide label</h3>
-                <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl
-                  consectetur.
-                </p>
-              </Carousel.Caption>
+              <img src={hero2} alt="Third slide" />
+            
             </Carousel.Item>
-          </Carousel> */}
+            <Carousel.Item>
+              <img src={image1} alt="Third slide" />
+             
+            </Carousel.Item>
+          </Carousel>
         </div>
       </div>
     </div>
