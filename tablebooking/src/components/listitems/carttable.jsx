@@ -3,7 +3,7 @@ import  { useState } from "react";
 const Cart = ({ cartItems, onQuantityChange ,initialCartItems  }) => {
     // State to manage count for each item
     const [counts, setCounts] = useState(cartItems.map(() => 1));
-    const [CartItems, setCartItems] = useState(initialCartItems);
+    const [CartItemsdelete, setCartItemsDelete] = useState(initialCartItems);
 
     // Function to handle count change for a specific item
     const handleCountChange = (index, newCount) => {
@@ -17,14 +17,17 @@ const Cart = ({ cartItems, onQuantityChange ,initialCartItems  }) => {
         const newCounts = [...counts];
         newCounts[index] = newCount;
         setCounts(newCounts);
-        onQuantityChange(index, newCount); // Notify parent component of quantity change
+        onQuantityChange(index, newCount);// Notify parent component of quantity change
+        // console.log(newCount) 
+        // console.log(parseInt(e.target.value))
     };
 
     // Function to handle item deletion
     const handleDeleteItem = (index) => {
         const updatedCartItems = cartItems.filter((_, i) => i !== index); // Remove the item
+        console.log(updatedCartItems)
         const updatedCounts = counts.filter((_, i) => i !== index); // Remove the corresponding count
-        setCartItems(updatedCartItems);
+        setCartItemsDelete(updatedCartItems);
         setCounts(updatedCounts);
        
     };
@@ -33,14 +36,14 @@ const Cart = ({ cartItems, onQuantityChange ,initialCartItems  }) => {
     // Calculate total price with validation
     const totalPrice = cartItems.reduce((total, item, index) => {
         const price = typeof item.price === 'number' ? item.price : 0;
-        const count = counts[index] || 1;
+        const count = counts[index] || 0 ;
         return total + price * count;
     }, 0);
 
     return (
         <div className="cart">
             <h2>Your Cart</h2>
-            <table className='container border'>
+            <table className='container border-2'>
                 <thead>
                     <tr>
                         <th>Item</th>
@@ -57,12 +60,13 @@ const Cart = ({ cartItems, onQuantityChange ,initialCartItems  }) => {
                             <td>
                                 <input
                                     type="number"
-                                    value={counts[index] || 1} // Default to 1 if count is invalid
+                                    value={counts[index] || 0} // Default to 1 if count is invalid
                                     min="1"
                                     max="15"
                                     onChange={(e) => handleCountChange(index, parseInt(e.target.value))}
                                 />
                             </td>
+                            
                             <td>Rs.{item.price.toFixed(2)}/-</td>
                             {/* <td>Rs.{(item.price * (counts[index] || 1)).toFixed(2)}/-</td>` */}
                             <td>

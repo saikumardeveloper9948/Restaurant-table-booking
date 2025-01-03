@@ -1,20 +1,86 @@
-import  { useState } from "react";
+import { useState } from "react";
+import axios from "axios";
 
 const Loginsignup = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
   };
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (isLogin) {
-        alert("Login form submitted!")
-      console.log("Login form submitted!");
+      // Login logic
+      try {
+        const response = await axios.get(
+          "https://signup-login-data-a4f69-default-rtdb.firebaseio.com/signup.json"
+        );
+
+        const users = response.data;
+        const user = Object.values(users || {}).find(
+          (u) => u.email === formData.email && u.password === formData.password
+        );
+
+        if (user) {
+          alert("Login successful!");
+          console.log("User logged in:", user);
+        } else {
+          alert("Invalid email or password.");
+        }
+      } catch (error) {
+        console.error("Error logging in:", error);
+        alert("Something went wrong. Please try again.");
+      }
     } else {
-        alert("Signup form submitted!")
-      console.log("Signup form submitted!");
+      // Signup logic
+      if (formData.password !== formData.confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+
+      try {
+        // Fetch existing users to check for duplicate emails
+        const response = await axios.get(
+          "https://signup-login-data-a4f69-default-rtdb.firebaseio.com/signup.json"
+        );
+
+        const users = response.data;
+        const emailExists = Object.values(users || {}).some(
+          (user) => user.email === formData.email
+        );
+
+        if (emailExists) {
+          alert("Email already exists! Please use a different email.");
+          return;
+        }
+        
+
+        // Add new user to the database
+        await axios.post(
+          "https://signup-login-data-a4f69-default-rtdb.firebaseio.com/signup.json",
+          {
+            email: formData.email,
+            password: formData.password,
+          }
+        );
+
+        alert("Signup successful!");
+        setFormData({ email: "", password: "", confirmPassword: "" });
+      } catch (error) {
+        console.error("Error signing up:", error);
+        alert("Something went wrong. Please try again.");
+      }
     }
   };
 
@@ -32,6 +98,8 @@ const Loginsignup = () => {
             <input
               type="email"
               name="email"
+              value={formData.email}
+              onChange={handleChange}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
               required
             />
@@ -43,6 +111,8 @@ const Loginsignup = () => {
             <input
               type="password"
               name="password"
+              value={formData.password}
+              onChange={handleChange}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
               required
             />
@@ -55,6 +125,8 @@ const Loginsignup = () => {
               <input
                 type="password"
                 name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 required
               />
