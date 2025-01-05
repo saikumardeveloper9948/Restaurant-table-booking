@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+// import { useNavigate } from "react-router-dom";
 
 const Loginsignup = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -8,6 +9,14 @@ const Loginsignup = () => {
     password: "",
     confirmPassword: "",
   });
+
+  // const navigate = useNavigate(); 
+  //  const handleClick = (path) => {
+    // setIsMenuVisible(false); // Close the menu
+    // navigate(path); // Navigate to the selected path
+  // };
+
+
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -86,8 +95,8 @@ const Loginsignup = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen ">
-      <div className="w-full max-w-md rounded-lg shadow-md p-6 bg-gray-100">
-        <h2 className="text-2xl font-bold text-center  mb-6">
+      <div className="w-full max-w-md rounded-lg shadow-md p-6 bg-gray-100 ">
+        <h2 className="text-2xl font-bold text-center text-orange-500 mb-6">
           {isLogin ? "Login" : "Signup"}
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -134,7 +143,7 @@ const Loginsignup = () => {
           )}
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="w-full py-2 px-4 bg-orange-400 text-white rounded-md shadow hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
             {isLogin ? "Login" : "Signup"}
           </button>
@@ -145,7 +154,7 @@ const Loginsignup = () => {
             : "Already have an account?"}{" "}
           <button
             onClick={toggleForm}
-            className="text-blue-600 hover:underline font-medium"
+            className="text-orange-500 hover:underline font-medium"
           >
             {isLogin ? "Sign up" : "Log in"}
           </button>

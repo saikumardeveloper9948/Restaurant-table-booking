@@ -4,6 +4,7 @@ import sandwich from '../../assets/sandwich.png';
 import pizza from '../../assets/pizza.png';
 import hero2 from '../../assets/hero2.png';
 import image1 from "../../assets/1.png";
+import {useNavigate} from 'react-router-dom';
 
 
 
@@ -253,6 +254,13 @@ import image1 from "../../assets/1.png";
 
 
 const Hero = () => {
+  const navigate= useNavigate()
+  const handleNavigation= () => {
+    navigate("/signup")
+  }
+  const fooditems=()=>{
+    navigate("/categories")
+  }
   return (
     <div>
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-8 min-h-[600px]">
@@ -265,8 +273,8 @@ const Hero = () => {
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex laborum beatae exercitationem soluta suscipit neque dolor, expedita earum dolore similique!
             </p>
             <div className="flex gap-4 items-center md:justify-center justify-center ">
-              <button className="primary-btn hover:scale-110 duration-200">Food Menu</button>
-              <button className="secondary-btn text-black hover:scale-110  duration-200">Book Table </button>
+              <button onClick={fooditems} className="primary-btn hover:scale-110 duration-200">Food Menu</button>
+              <button onClick={handleNavigation}  className="secondary-btn text-black hover:scale-110  duration-200">Book Table </button>
             </div>
       
 

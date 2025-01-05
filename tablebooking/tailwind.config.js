@@ -6,8 +6,17 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        'xs': '320px', // Add a custom breakpoint for 320px
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px',
+      },      
       colors: {
         primary: "#f97316",
+        
       },
       fontFamily:{
         sans:["Poppins","sans-serif"]
@@ -34,11 +43,17 @@ export default {
             transform:"rotate(360deg)"
           }
         }
-      }
+      },
+     
+      backgroundImage: {
+        'custom-bg': "url('../../assets/table.jpg')", // Example custom background image
+      },
+
   },
   
   
 },
+variants: {},
 plugins:[],
 }
 

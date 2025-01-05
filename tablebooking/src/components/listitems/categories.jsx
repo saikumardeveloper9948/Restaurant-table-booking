@@ -3,6 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Cart from './carttable';
 import Modal from 'react-bootstrap/Modal'; 
+import Services from "../Services/services";
+// import { useNavigate } from "react-router-dom";
 
 
 const foodItems = [
@@ -434,6 +436,9 @@ class Categories extends React.Component {
     };
   }
 
+ 
+
+
   handleSearchChange = (event) => {
     this.setState({ searchQuery: event.target.value });
   };
@@ -481,10 +486,11 @@ class Categories extends React.Component {
     );
 
     return (
+      <div>
       <div className="container">
         <div>
           <h2 className="flex justify-center font-semibold text-4xl py-4">
-            Choose What's In Your Mind
+            Choose What&apos;s In Your Mind
           </h2>
 
           {/* Search Input for Food Items */}
@@ -535,6 +541,8 @@ class Categories extends React.Component {
         // onQuantityChange={onQuantityChange}
         // removeItem={removeItem}
         />
+      </div>
+      <Services/>
       </div>
     );
   }

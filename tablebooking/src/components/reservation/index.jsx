@@ -1,10 +1,107 @@
 import React from "react";
-import image from "../../assets/reserved table.jpg"
+import image from "../../assets/reserved table.jpg";
+import axios from "axios";
 
 class Reservation extends React.Component {
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
+        state = {
+            realTimeDate: this.getCurrentDate(), // State for real-time date
+            realTimeTime: this.getCurrentTime(), // State for real-time time
+          
+            FullName: "",
+            email: "",
+            datetime:"",
+            noofpeople:"",
+            tables:"",
+            phno :"",
+            specialrequest:"",
+        };
+    // }
+
+    // Function to get the current date in YYYY-MM-DD format
+    getCurrentDate() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
     }
+
+    // Function to get the current time in HH:MM:SS format
+    getCurrentTime() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        return `${hours}:${minutes}:${seconds}`;
+    }
+
+    handleChange = (event) => {
+        this.setState({ [event.target.name]: event.target.value})
+    }
+
+    // Function to handle the form submission
+    handleSubmit =async (event) => {
+        event.preventDefault();
+    try{
+        await axios.post(
+            "https://signup-login-data-a4f69-default-rtdb.firebaseio.com/tablebooking.json",
+            {
+                
+                    realTimeDate:this.state.realTimeDate,
+                    realTimeTime:this.state.realTimeTime,
+                    FullName:this.state.FullName,
+                    email:this.state.email,
+                    datetime:this.state.datetime,
+                    noofpeople:this.state.noofpeople,
+                    tables:this.state.tables,
+                    phno:this.state.phno,
+                    specialrequest:this.state.specialrequest              
+            }
+          );
+          alert("Table booked successfully");
+          this.setState({
+            FullName: "",
+            email: "",
+            datetime: "",
+            noofpeople: "",
+            tables: "",
+            phno: "",
+            specialrequest: "",
+    
+        })
+
+       
+          // Process the form data (e.g., send it to a server or display it)
+    console.log("table reserved for:", this.state);
+
+    } catch(error){
+        console.error("error at booking table", error);
+        alert("Something went wrong. Please try again.")
+    }
+   
+   
+}
+
+
+
+
+    // Update real-time date and time every second
+    componentDidMount() {
+        this.interval = setInterval(() => {
+            this.setState({
+                realTimeDate: this.getCurrentDate(),
+                realTimeTime: this.getCurrentTime(),
+            });
+        }, 1000);
+    }
+
+    // Clear the interval when the component unmounts
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
     render() {
         return (
             <div className="container w-full lg:px-28 md:px-16 sm:px-7 px-4 pb-6">
@@ -14,6 +111,7 @@ class Reservation extends React.Component {
                     </div>
                     <div className="w-full bg-zinc-800 md:p-8 p-4 flex items-center justify-center md:rounded-r-xl md:rounded-l-none rounded-r-xl rounded-l-xl">
                         <div className="w-full space-y-6">
+                            <form onSubmit={this.handleSubmit}>
                             <div className="space-y-1">
                                 <h5 className="text-base text-yellow-500 font-normal">
                                     Reservation
@@ -21,6 +119,13 @@ class Reservation extends React.Component {
                                 <h1 className="text-xl text-neutral-100 font-bold">
                                     Book a table online
                                 </h1>
+                                {/* Display real-time date and time separately */}
+                                <p className="text-sm text-neutral-400" >
+                                    Date: {this.state.realTimeDate}
+                                </p>
+                                <p className="text-sm text-neutral-400">
+                                    Time: {this.state.realTimeTime}
+                                </p>
                             </div>
 
                             <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
@@ -28,28 +133,28 @@ class Reservation extends React.Component {
                                     <label htmlFor="FullName" className="text-base text-neutral-400 font-normal-block">
                                         Full Name
                                     </label>
-                                    <input type="text" id="FullName" placeholder="e.g. Surname. Name" className="w-full h-12 border-neutral-400/40 bg-neutral-900/5 px-3 rounded-lg text-base text-neutral-300 placeholder:text-neutral-500/90 outline-none focus:bg-yellow-600/5 focus:border-yellow-500 ease-in-out duration-300" />
+                                    <input type="text"  name="FullName" id="FullName" value={this.state.FullName} onChange={this.handleChange}  placeholder="e.g. Surname. Name" className="w-full h-12 border-neutral-400/40 bg-neutral-900/5 px-3 rounded-lg text-base text-neutral-300 placeholder:text-neutral-500/90 outline-none focus:bg-yellow-600/5 focus:border-yellow-500 ease-in-out duration-300" required />
                                 </div>
                                 <div className="space-y-1.5">
                                     <label htmlFor="email" className="text-base text-neutral-400 font-normal-block">
                                         E-mail Id
                                     </label>
-                                    <input type="email" id="email" placeholder="e.g. name@gmail.com" className="w-full h-12 border-neutral-400/40 bg-neutral-900/5 px-3 rounded-lg text-base text-neutral-300 placeholder:text-neutral-500/90 outline-none focus:bg-yellow-600/5 focus:border-yellow-500 ease-in-out duration-300" />
+                                    <input type="email" value={this.state.email} onChange={this.handleChange} name="email" id="email" placeholder="e.g. name@gmail.com" className="w-full h-12 border-neutral-400/40 bg-neutral-900/5 px-3 rounded-lg text-base text-neutral-300 placeholder:text-neutral-500/90 outline-none focus:bg-yellow-600/5 focus:border-yellow-500 ease-in-out duration-300" required />
                                 </div>
                             </div>
 
                             <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
                                 <div className="space-y-1.5">
-                                    <label htmlFor="Date&Time" className="text-base text-neutral-400 font-normal-block">
+                                    <label htmlFor="datetime" className="text-base text-neutral-400 font-normal-block">
                                         Time & Date 
                                     </label>
-                                    <input type="datetime-local" id="Date&Time"  className="w-full h-12 border-neutral-400/40 bg-neutral-900/5 px-3 rounded-lg text-base text-neutral-300 placeholder:text-neutral-500/90 outline-none focus:bg-yellow-600/5 focus:border-yellow-500 ease-in-out duration-300" />
+                                    <input type="datetime-local" value={this.state.datetime} onChange={this.handleChange} name="datetime" id="datetime"  className="w-full h-12 border-neutral-400/40 bg-neutral-900/5 px-3 rounded-lg text-base text-neutral-300 placeholder:text-neutral-500/90 outline-none focus:bg-yellow-600/5 focus:border-yellow-500 ease-in-out duration-300" required/>
                                 </div>
                                 <div className="space-y-1.5">
                                     <label htmlFor="noofpeople" className="text-base text-neutral-400 font-normal-block">
                                         No Of People 
                                     </label>
-                                    <select name="noofpeople" id="noofpeople"  className="w-full h-12 border-neutral-400/40 bg-neutral-900/5 px-3 rounded-lg text-base text-neutral-300 placeholder:text-neutral-500/90 outline-none focus:bg-yellow-600/5 focus:border-yellow-500 ease-in-out duration-300">
+                                    <select name="noofpeople" id="noofpeople" value={this.state.noofpeople} onChange={this.handleChange} className="w-full h-12 border-neutral-400/40 bg-neutral-900/5 px-3 rounded-lg text-base text-neutral-300 placeholder:text-neutral-500/90 outline-none focus:bg-yellow-600/5 focus:border-yellow-500 ease-in-out duration-300" required>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -70,7 +175,7 @@ class Reservation extends React.Component {
                                     <label htmlFor="tables" className="text-base text-neutral-400 font-normal-block">
                                         Reserve Table
                                     </label>
-                                    <select name="tables" id="tables"  className="w-full h-12 border-neutral-400/40 bg-neutral-900/5 px-3 rounded-lg text-base text-neutral-300 placeholder:text-neutral-500/90 outline-none focus:bg-yellow-600/5 focus:border-yellow-500 ease-in-out duration-300">
+                                    <select name="tables" id="tables" value={this.state.tables} onChange={this.handleChange}  className="w-full h-12 border-neutral-400/40 bg-neutral-900/5 px-3 rounded-lg text-base text-neutral-300 placeholder:text-neutral-500/90 outline-none focus:bg-yellow-600/5 focus:border-yellow-500 ease-in-out duration-300" required>
                                         <option value="1">1</option>
                                         <option value="2" disabled>2</option>
                                         <option value="3">3</option>
@@ -85,18 +190,26 @@ class Reservation extends React.Component {
                                     </select>
                                     {/* <input type="email" id="email" placeholder="e.g. name@gmail.com" className="w-full h-12 border-neutral-400/40 bg-neutral-900/5 px-3 rounded-lg text-base text-neutral-300 placeholder:text-neutral-500/90 outline-none focus:bg-yellow-600/5 focus:border-yellow-500 ease-in-out duration-300" /> */}
                                 </div>
+                                <div className="space-y-1.5">
+                                    <label htmlFor="phno" className="text-base text-neutral-400 font-normal-block">
+                                        Phone No
+                                    </label>
+                                    
+                                    <input type="tel" name="phno" value={this.state.phno} onChange={this.handleChange} id="phno" placeholder="e.g. 99xxxx4152" className="w-full h-12 border-neutral-400/40 bg-neutral-900/5 px-3 rounded-lg text-base text-neutral-300 placeholder:text-neutral-500/90 outline-none focus:bg-yellow-600/5 focus:border-yellow-500 ease-in-out duration-300" required />
+                                </div>  
                             </div>
 
                             <div className="space-y-1.5">
                             <label htmlFor="specialrequest" className="text-base text-neutral-400 font-normal-block">
                                 Any Special Request?
                             </label>
-                            <textarea name="specialrequest" id="specialrequest" rows="4" placeholder="e.g. Decorate table for a 2nd anniversary" className="w-full h-28 border-neutral-400/40 bg-neutral-900/5 px-3 py-2 rounded-lg text-base text-neutral-300 placeholder:text-neutral-500/90 outline-none focus:bg-yellow-600/5 focus:border-yellow-500 ease-in-out duration-300"></textarea>
+                            <textarea name="specialrequest" value={this.state.specialrequest} onChange={this.handleChange} id="specialrequest" rows="4" placeholder="e.g. Decorate table for a 2nd anniversary" className="w-full h-28 border-neutral-400/40 bg-neutral-900/5 px-3 py-2 rounded-lg text-base text-neutral-300 placeholder:text-neutral-500/90 outline-none focus:bg-yellow-600/5 focus:border-yellow-500 ease-in-out duration-300"></textarea>
 
                             </div>
-                            <button className="w-full h-12 rounded-lg bg-yellow-600 hover:bg-yellow-600/80 !mb-3 text-neutral-100 font-medium ease-in-out duration-300">
+                            <button type="submit" className="w-full h-12 rounded-lg bg-yellow-600 hover:bg-yellow-600/80 !mb-3 text-neutral-100 font-medium ease-in-out duration-300" >
                                 Book a Table Now
                             </button>
+                            </form>
                         </div>
                     </div>
                 </div>

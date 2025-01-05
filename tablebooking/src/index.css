@@ -16,3 +16,37 @@
         }
     }
 }
+
+
+/* Custom Styles for Toggle Button */
+.hamburger-icon {
+    @apply text-2xl cursor-pointer sm:hidden;
+  }
+  
+  /* Custom Styles for Menu on Small Screens */
+  .mobile-menu {
+    @apply flex flex-col absolute top-16 bg-white w-full left-0 p-4 shadow-lg sm:hidden;
+  }
+  
+/* Custom Styles for Menu Items */
+.menu-item {
+    @apply hover:shadow-lg p-2 bg-slate-200 rounded hover:border-b-4 border-primary uppercase cursor-pointer font-semibold;
+  }
+
+  /* Custom Saffron Color */
+.bg-saffron {
+    background-color: #FF9933; /* Saffron color */
+  }
+
+  .saffron{
+    color: #FF9933;
+  }
+
+  .custom-section {
+    margin: 0 auto;
+    max-width: 800px;
+  }
+  
+  .bg-custom-orange {
+    background-color: #FFA500;
+  }

@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from "./components/navbar/navbar";
 import Hero from "./components/section1/hero";
 import Items from './components/section2/toplist';
@@ -9,6 +10,8 @@ import Categories from "./components/listitems/categories"
 import Reservation from "./components/reservation/index"
 import Services from "./components/Services/services"
 import Loginsignup from "./components/loginsignup/signup"
+import AboutPage from './components/about/aboutus';
+import ContactPage from './components/contact/contactus';
 
 
 
@@ -20,19 +23,35 @@ const bgStyle={
 }
 
 const App = () => {
-  return <div style={bgStyle} className='overflow-x-hidden'>
+  return (
+   <Router>
+  <div style={bgStyle} className='overflow-x-hidden'>
    <div className='min-h-screen bg-white/50 backdrop-blur-3xl'>
    <Navbar/>
-   <Loginsignup/>
-    <Hero/>
-    <Items/>
-    <Banner/>
-    <Categories/>
-    <Reservation/>
-    <Services/>
+   <Routes>
+    <Route path='/signup' element={ <Loginsignup/>}/>
+    <Route path='/' element={ <Hero/>}/>
+    <Route path='/toplist' element={ <Items/>}/>
+    <Route path='/banner' element={ <Banner/>}/>
+    <Route path='/categories' element={ <Categories/>}/>
+    <Route path="/about" element={<AboutPage />} />
+    <Route path='/*' element={
+              <>
+                <Hero />
+                <Items />
+                <Banner />
+                <Categories />
+                <Reservation />
+                <AboutPage />
+                <ContactPage />
+                <Services />
+              </>
+            } />
+          </Routes>
    </div>
   </div>
-  
+   </Router> 
+  ) 
 }
 
 export default App
