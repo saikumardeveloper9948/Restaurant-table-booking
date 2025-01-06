@@ -16,10 +16,7 @@ const Navbar = () => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   // Toggle cart visibility
-  const toggleCart = () => {
-    setIsCartVisible(!isCartVisible);
-  };
-
+  
   // Toggle menu visibility
   const toggleMenu = () => {
     setIsMenuVisible(!isMenuVisible);
