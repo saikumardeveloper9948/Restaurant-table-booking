@@ -104,7 +104,7 @@ class Reservation extends React.Component {
 
     render() {
         return (
-            <div className="container w-full lg:px-28 md:px-16 sm:px-7 px-4 pb-6">
+            <div className="container w-full lg:px-28 md:px-16 sm:px-7 px-4  py-5">
                 <div className="grid lg:grid-cols-2  md:grid-cols-2 sm:grid-cols-1">
                     <div className="md:block hidden h-full">
                         <img src={image} alt="table" className="w-full h-full object-cover object-center rounded-l-xl  space-y-6" />

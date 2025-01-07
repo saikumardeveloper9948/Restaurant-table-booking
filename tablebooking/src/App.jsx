@@ -13,6 +13,7 @@ import Loginsignup from "./components/loginsignup/signup"
 import AboutPage from './components/about/aboutus';
 import ContactPage from './components/contact/contactus';
 import UserProfile from './components/profile/profile';
+import Cart from "./components/listitems/carttable"
 
 
 
@@ -39,6 +40,8 @@ const App = () => {
     <Route path="/about" element={<AboutPage />} />
     <Route path="/profile" element={<UserProfile />} />
     <Route path="/contact" element={<ContactPage />} />
+    <Route path="/cart" element={<Cart />} />
+    <Route path="/reservation" element={<Reservation />} />
     <Route path='/*' element={
               <>
                 <Hero />

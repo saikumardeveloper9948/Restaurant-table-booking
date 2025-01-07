@@ -3,20 +3,18 @@ import {  FiMenu } from "react-icons/fi"; // Import FiMenu for the hamburger ico
 import Cart from '../listitems/carttable';
 import { useNavigate } from "react-router-dom";
 import { FaCartPlus } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
+// import UserProfile from "../profile/profile"
 
 const Navbar = () => {
   const navigate = useNavigate();
-  // const handleabout = () => {
-    // navigate("/about");
-  // };
+  
 
-  // State to manage cart visibility
-  const [isCartVisible, setIsCartVisible] = useState(false);
 
   // State to manage menu visibility on small screens
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
-  // Toggle cart visibility
+
   
   // Toggle menu visibility
   const toggleMenu = () => {
@@ -29,17 +27,18 @@ const Navbar = () => {
     };
 
   return (
-    <div className="sticky top-0   py-6  bg-white z-50 shadow-md">
-      <div className="container flex justify-between items-center">
+    <div className="sticky top-0   py-1 bg-white z-50 shadow-md">
+      <div className="container flex justify-between items-center ">
         {/* Logo Section */}
         <div>
-          <p className="text-lg font-bold">
+          <p className="text-lg font-bold ">
             FOOD <span className="text-orange-500">WORLD</span>
           </p>
         </div>
 
         {/* Menu Section */}
-        <div className="flex justify-center items-center gap-6">
+       <div className="flex gap-4">
+       <div className="flex justify-center items-center gap-6">
           {/* Hamburger Icon for Small Screens */}
           <FiMenu
             onClick={toggleMenu}
@@ -54,32 +53,40 @@ const Navbar = () => {
           >
             <li 
               onClick={()=>{handleMenuItemClick("/home")}}
-              className="hover:shadow-lg p-2 rounded   uppercase cursor-pointer font-semibold hover:bg-orange-500 hover:text-white">
+              className="hover:shadow-lg p-2 rounded   uppercase cursor-pointer m-2 font-semibold hover:bg-orange-500 hover:text-white">
               HOME
             </li>
             <li
               onClick={()=>{handleMenuItemClick("/categories")}}
-              className="hover:shadow-lg p-2 rounded   uppercase cursor-pointer font-semibold hover:bg-orange-500 hover:text-white">
+              className="hover:shadow-lg p-2 rounded   uppercase cursor-pointer m-2 font-semibold hover:bg-orange-500 hover:text-white">
               MENU
             </li>
             <li
               onClick={()=>{handleMenuItemClick("/about")}}
-              className="hover:shadow-lg p-2 rounded   uppercase cursor-pointer font-semibold hover:bg-orange-500 hover:text-white"
+              className="hover:shadow-lg p-2 rounded   uppercase cursor-pointer m-2 font-semibold hover:bg-orange-500 hover:text-white"
             >
               ABOUT
             </li>
             <li 
               onClick={()=>{handleMenuItemClick("/contact")}}
-              className="hover:shadow-lg p-2 rounded   uppercase cursor-pointer font-semibold hover:bg-orange-500 hover:text-white">
+              className="hover:shadow-lg p-2 rounded   uppercase cursor-pointer m-2 font-semibold hover:bg-orange-500 hover:text-white">
               CONTACT
             </li>
             <li 
-            onClick={()=>{handleMenuItemClick("")}}
-            className="hover:shadow-lg p-2 rounded   uppercase cursor-pointer font-semibold hover:bg-orange-500 hover:text-white">
+            onClick={()=>{handleMenuItemClick("/cart")}}
+            className="hover:shadow-lg p-2 rounded   uppercase cursor-pointer font-semibold hover:bg-orange-500 hover:text-white text-3xl m-2">
             <FaCartPlus />
             </li>
           </ul>
         </div>
+
+        <div  className="hover:shadow-lg p-2 rounded   uppercase cursor-pointer font-semibold hover:bg-orange-500 hover:text-white text-3xl m-2 h-12" 
+          onClick={()=>{handleMenuItemClick("./profile")}}
+        >
+
+        <CgProfile/>
+        </div>
+       </div>
 
         {/* Login and Cart Section */}
         {/* <div className="flex gap-4 items-center">
@@ -87,12 +94,8 @@ const Navbar = () => {
         </div> */}
       </div>
 
-      {/* Cart Table */}
-      {/* {isCartVisible && (
-        <div className="absolute mt-2 bg-white shadow-lg rounded-lg p-4 z-10">
-          <Cart />
-        </div>
-      )} */}
+   
+     
     </div>
   );
 };

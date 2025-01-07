@@ -1,10 +1,17 @@
-import  { useState } from "react";
+import  { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import firebase from "../firebase/firebaseconfig/firbase_config"; 
 
-const UserProfile = (emailData) => {
+const UserProfile = () => {
+    // Get the email from location state (passed from Loginsignup)
+    const location = useLocation();
+    const navigate = useNavigate();
+    const  email = location.state?.email || ""; // Use email passed from navigation state
+  
   // User state
   const [user, setUser] = useState({
     name: "",
-    email: "",
+    email:email || "",
     dob: "",
     profileImage: "", // Replace with actual image URL
   });
@@ -12,6 +19,17 @@ const UserProfile = (emailData) => {
   // Edit mode state
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({ ...user });
+
+  useEffect(() => {
+    // If email is passed, update user state with email
+    if (email) {
+      setUser((prevUser) => ({
+        ...prevUser,
+        email, // Update email if passed in
+      }));
+    }
+  }, [email]); // Update user if the email changes
+
 
   // Handle input changes in edit mode
   const handleChange = (e) => {
@@ -32,10 +50,15 @@ const UserProfile = (emailData) => {
   };
 
   // Logout functionality
-  const handleLogout = () => {
-    alert("You have logged out!");
-    
-    // Implement logout logic here (e.g., Firebase auth signOut)
+  const handleLogout =async () => {
+    try {
+      await firebase.auth().signOut();
+      alert("You have logged out!");
+      navigate("/signup");
+    } catch (error){
+      console.error("error occured at logout :",error);
+      alert("An error occurred during logout.");
+    }
   };
 
   return (
@@ -43,7 +66,7 @@ const UserProfile = (emailData) => {
       <div className="w-full max-w-lg bg-white rounded-lg shadow-md p-6">
         {/* Profile Header */}
         <div className="flex items-center flex-col">
-          <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-blue-500">
+          <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-orange-500">
             <img
               src={user.profileImage}
               alt="Profile"
@@ -51,10 +74,12 @@ const UserProfile = (emailData) => {
             />
           </div>
           {isEditing ? (
-            <div className="mt-4">
+            <div className="  flex">
+               <label htmlFor="name">Name</label>
               <input
                 type="text"
                 name="name"
+                placeholder="enter your name"
                 value={editData.name}
                 onChange={handleChange}
                 className="text-center text-xl font-semibold text-gray-700 border rounded-md px-2 py-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -69,18 +94,24 @@ const UserProfile = (emailData) => {
         <div className="mt-6 space-y-4">
           {/* Email */}
           <div className="flex items-center justify-between">
-            <p className="text-gray-600 font-medium">Email:</p>
+            {/* <p className="text-gray-600 font-medium">Email:</p> */}
+            <label htmlFor="email"> Email</label>
             {isEditing ? (
               <input
                 type="email"
+                id="email"
                 name="email"
-                value={emailData}
+                value={editData.email}
+                // readOnly 
                 onChange={handleChange}
                 className="border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
+              
             ) : (
-              <p className="text-gray-800">{user.email}</p>
+              <p className="text-gray-800">{user.email}</p>   // Display email in non-editing mode
             )}
+           
+
           </div>
 
           {/* Date of Birth */}

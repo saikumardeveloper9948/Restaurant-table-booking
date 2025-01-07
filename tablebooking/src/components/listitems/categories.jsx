@@ -466,16 +466,17 @@ class Categories extends React.Component {
     this.setState({ showModal: false });
   };
 
-  removeItem = (index) => {
+    // Make sure this method is correct, and it's passed as a prop
+    handleRemoveItem = (index) => {
     const newCartItems = this.state.cartItems.filter((_, i) => i !== index);
     this.setState({ cartItems: newCartItems });
   };
 
-  onQuantityChange = (index, newQuantity) => {
-    const updatedCartItems = [...this.state.cartItems];
-    updatedCartItems[index].quantity = newQuantity;
-    this.setState({ cartItems: updatedCartItems });
-  };
+  // onQuantityChange = (index, newQuantity) => {
+  //   const updatedCartItems = [...this.state.cartItems];
+  //   updatedCartItems[index].quantity = newQuantity;
+  //   this.setState({ cartItems: updatedCartItems });
+  // };
   render() {
     const { searchQuery, cartItems, showModal } = this.state;
 
@@ -499,7 +500,7 @@ class Categories extends React.Component {
             placeholder="Search for food items..."
             value={searchQuery}
             onChange={this.handleSearchChange}
-            className="form-control mb-4 px-10 container"
+            className="form-control mb-4 px-10 container "
           />
 
           {filteredFoodItems.length > 0 ? (
@@ -512,7 +513,7 @@ class Categories extends React.Component {
                       <Card.Title>{item.name}</Card.Title>
                       <Card.Text>{item.rating}</Card.Text>
                       <Card.Text>{item.description}</Card.Text>
-                      <Button variant="primary" onClick={() => this.addItemToCart(item)}>Add Item</Button>
+                      <Button variant="warning" onClick={() => this.addItemToCart(item)}>Add Item</Button>
                     </Card.Body>
                   </Card>
                 </div>

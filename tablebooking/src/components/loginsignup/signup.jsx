@@ -1,7 +1,8 @@
 import { useState } from "react";
 import firebase from "../firebase/firebaseconfig/firbase_config";
 import "firebase/compat/auth";
-import UserProfile from "../profile/profile";
+import { useNavigate } from "react-router-dom"; 
+
 
 const Loginsignup = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -12,10 +13,8 @@ const Loginsignup = () => {
   });
 
   const [isForgotPassword, setIsForgotPassword] = useState(false);
-  // const [phoneNumber, setPhoneNumber] = useState("");
-  // const [otp, setOtp] = useState("");
-  // const [verificationId, setVerificationId] = useState("");
-  // const [isOtpSent, setIsOtpSent] = useState(false);
+  const navigate = useNavigate(); 
+
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -24,14 +23,6 @@ const Loginsignup = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  // const handlePhoneChange = (e) => {
-  //   setPhoneNumber(e.target.value);
-  // };
-
-  // const handleOtpChange = (e) => {
-  //   setOtp(e.target.value);
-  // };
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();
@@ -45,40 +36,6 @@ const Loginsignup = () => {
     }
   };
 
-  // const handleOtpSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const credential = firebase.auth.PhoneAuthProvider.credential(
-  //       verificationId,
-  //       otp
-  //     );
-  //     await firebase.auth().signInWithCredential(credential);
-  //     alert("Phone number verified and logged in!");
-  //   } catch (error) {
-  //     console.error("Error verifying OTP:", error);
-  //     alert("Invalid OTP. Please try again.");
-  //   }
-  // };
-
-  // const handleOtpRequest = async (e) => {
-  //   e.preventDefault();
-  //   const appVerifier = new firebase.auth.RecaptchaVerifier("recaptcha-container", {
-  //     size: "invisible",
-  //   });
-
-  //   try {
-  //     const verificationId = await firebase
-  //       .auth()
-  //       .signInWithPhoneNumber(phoneNumber, appVerifier);
-  //     setVerificationId(verificationId);
-  //     setIsOtpSent(true);
-  //     alert("OTP sent to your phone number!");
-  //   } catch (error) {
-  //     console.error("Error sending OTP:", error);
-  //     alert("Something went wrong. Please try again.");
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -90,8 +47,11 @@ const Loginsignup = () => {
           .signInWithEmailAndPassword(formData.email, formData.password);
 
         const user = userCredential.user;
+
         if (user.emailVerified) {
-          alert("Login successful!");
+          alert("Email has been verified With successful login..!");
+             // Redirect to login page after verification
+          navigate("/reservation",{state:{email:formData.email } } ); // Use navigate to redirect to the login page
         } else {
           alert("Please verify your email before logging in.");
         }
@@ -107,11 +67,22 @@ const Loginsignup = () => {
       }
 
       try {
+
+        const methods = await firebase.auth().fetchSignInMethodsForEmail(formData.email);
+
+        if (methods.length > 0) {
+          // If the email already exists, show an alert and redirect to login page
+          alert("User details already exist. Please log in.");
+          navigate("/login"); // Navigate to login page
+          return; // Exit the function
+        }
+            // If the email does not exist, proceed with sign-up
         const userCredential = await firebase
           .auth()
           .createUserWithEmailAndPassword(formData.email, formData.password);
 
         const user = userCredential.user;
+
         await user.sendEmailVerification();
         alert(
           "Signup successful! A verification email has been sent to your email address. Please verify before logging in."
@@ -148,11 +119,11 @@ const Loginsignup = () => {
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 required
               />
-            {isLogin?<UserProfile emailData={formData.email}/>:""} 
+           
             </div>
             <button
               type="submit"
-              className="w-full py-2 px-4 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600"
+              className="w-full py-2 px-4 bg-orange-500 text-white rounded-md shadow hover:bg-orange-600"
             >
               Send Password Reset Email
             </button>
