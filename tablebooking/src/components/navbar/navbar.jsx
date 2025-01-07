@@ -2,6 +2,7 @@ import { useState } from "react";
 import {  FiMenu } from "react-icons/fi"; // Import FiMenu for the hamburger icon
 import Cart from '../listitems/carttable';
 import { useNavigate } from "react-router-dom";
+import { FaCartPlus } from "react-icons/fa";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const Navbar = () => {
     };
 
   return (
-    <div className="py-6 sticky top-0 bg-white z-50 shadow-md">
+    <div className="sticky top-0   py-6  bg-white z-50 shadow-md">
       <div className="container flex justify-between items-center">
         {/* Logo Section */}
         <div>
@@ -51,10 +52,14 @@ const Navbar = () => {
               isMenuVisible ? "flex flex-col absolute top-16 right-0 bg-white w-auto  p-4 shadow-lg" : "hidden"
             } sm:flex sm:flex-row sm:relative sm:top-0 sm:bg-transparent sm:shadow-none`}
           >
-            <li className="hover:shadow-lg p-2 rounded   uppercase cursor-pointer font-semibold hover:bg-orange-500 hover:text-white">
+            <li 
+              onClick={()=>{handleMenuItemClick("/home")}}
+              className="hover:shadow-lg p-2 rounded   uppercase cursor-pointer font-semibold hover:bg-orange-500 hover:text-white">
               HOME
             </li>
-            <li className="hover:shadow-lg p-2 rounded   uppercase cursor-pointer font-semibold hover:bg-orange-500 hover:text-white">
+            <li
+              onClick={()=>{handleMenuItemClick("/categories")}}
+              className="hover:shadow-lg p-2 rounded   uppercase cursor-pointer font-semibold hover:bg-orange-500 hover:text-white">
               MENU
             </li>
             <li
@@ -63,13 +68,15 @@ const Navbar = () => {
             >
               ABOUT
             </li>
-            <li className="hover:shadow-lg p-2 rounded   uppercase cursor-pointer font-semibold hover:bg-orange-500 hover:text-white">
+            <li 
+              onClick={()=>{handleMenuItemClick("/contact")}}
+              className="hover:shadow-lg p-2 rounded   uppercase cursor-pointer font-semibold hover:bg-orange-500 hover:text-white">
               CONTACT
             </li>
             <li 
             onClick={()=>{handleMenuItemClick("")}}
             className="hover:shadow-lg p-2 rounded   uppercase cursor-pointer font-semibold hover:bg-orange-500 hover:text-white">
-             CART
+            <FaCartPlus />
             </li>
           </ul>
         </div>
@@ -81,11 +88,11 @@ const Navbar = () => {
       </div>
 
       {/* Cart Table */}
-      {isCartVisible && (
+      {/* {isCartVisible && (
         <div className="absolute mt-2 bg-white shadow-lg rounded-lg p-4 z-10">
           <Cart />
         </div>
-      )}
+      )} */}
     </div>
   );
 };

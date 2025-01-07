@@ -3,7 +3,7 @@ import { FiPhoneCall } from "react-icons/fi";
 import { IoRestaurantOutline } from "react-icons/io5"; 
 import axios from "axios"; // Import axios for making HTTP requests
 import { useState } from "react"; // Import useState for form state management
-
+import Services from "../Services/services";
 const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -48,6 +48,8 @@ const ContactPage = () => {
   };
 
   return (
+
+    <div>
     <div className="bg-gray-100 min-h-screen flex flex-col items-center">
       {/* Header */}
       <header className="bg-orange-500 text-white w-full py-10 text-center">
@@ -142,6 +144,8 @@ const ContactPage = () => {
       </main>
 
      
+    </div>
+    <Services/>
     </div>
   );
 };

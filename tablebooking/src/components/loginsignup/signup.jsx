@@ -1,6 +1,7 @@
 import { useState } from "react";
 import firebase from "../firebase/firebaseconfig/firbase_config";
 import "firebase/compat/auth";
+import UserProfile from "../profile/profile";
 
 const Loginsignup = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -147,6 +148,7 @@ const Loginsignup = () => {
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 required
               />
+            {isLogin?<UserProfile emailData={formData.email}/>:""} 
             </div>
             <button
               type="submit"

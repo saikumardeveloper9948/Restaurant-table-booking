@@ -12,6 +12,7 @@ import Services from "./components/Services/services"
 import Loginsignup from "./components/loginsignup/signup"
 import AboutPage from './components/about/aboutus';
 import ContactPage from './components/contact/contactus';
+import UserProfile from './components/profile/profile';
 
 
 
@@ -31,10 +32,13 @@ const App = () => {
    <Routes>
     <Route path='/signup' element={ <Loginsignup/>}/>
     <Route path='/' element={ <Hero/>}/>
+    <Route path='/home' element={ <Hero/>}/>
     <Route path='/toplist' element={ <Items/>}/>
     <Route path='/banner' element={ <Banner/>}/>
     <Route path='/categories' element={ <Categories/>}/>
     <Route path="/about" element={<AboutPage />} />
+    <Route path="/profile" element={<UserProfile />} />
+    <Route path="/contact" element={<ContactPage />} />
     <Route path='/*' element={
               <>
                 <Hero />
