@@ -11,15 +11,15 @@ const AboutPage = () => {
 
   return (
     <div>
-      <div className="bg-gray-100 min-h-screen flex flex-col items-center">
+      <div className="bg-gray-100 min-h-screen flex flex-col items-center ">
         <header className="bg-custom-orange text-white w-full py-10 text-center">
           <h1 className="text-4xl font-bold">About Us</h1>
           <p className="text-lg mt-2">Your gateway to a seamless dining experience!</p>
         </header>
 
-        <main style={bgStyle} className="w-full container-fluid py-10 space-y-8">
+        <main style={bgStyle} className="w-full container-fluid py-10 space-y-8 ">
           {/* Our Story Section */}
-          <section className="bg-white shadow-md rounded-lg px-10 py-3 mx-60 custom-section">
+          <section className="bg-white shadow-md rounded-lg px-10 py-3  custom-section">
             <h2 className="text-2xl font-semibold text-orange-500">Our Story</h2>
             <p className="mt-4 text-gray-700">
               Welcome to our restaurant table booking app! We’re passionate about

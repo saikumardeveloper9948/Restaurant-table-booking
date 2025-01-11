@@ -1,5 +1,9 @@
 // Import the functions you need from the SDKs you need
+import { getAuth } from "firebase/auth";
+
+
 import { initializeApp } from "firebase/app";
+
 
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth"; // For authentication
@@ -25,5 +29,8 @@ if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
   }
   
+export const auth = getAuth(app);
   export default firebase;
+
+  
 

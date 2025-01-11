@@ -1,3 +1,7 @@
+
+
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -14,6 +18,24 @@
             /* box-shadow: 5px 5px 10px rgba(0,0,0,0.3); */
             filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.8))
         }
+    }
+    @keyframes border-anim {
+      0% {
+        border-color: transparent;
+        transform: scale(1);
+      }
+      50% {
+        /* border-color: #f97316; Orange color */
+        transform: scale(1.05); /* Slightly enlarge the element */
+      }
+      100% {
+        border-color: transparent;
+        transform: scale(1);
+      }
+    }
+  
+    .animate-border {
+      animation: border-anim 1s ease-in-out infinite;
     }
 }
 
@@ -50,3 +72,4 @@
   .bg-custom-orange {
     background-color: #FFA500;
   }
+

@@ -1,6 +1,8 @@
 import React from "react";
 import image from "../../assets/reserved table.jpg";
 import axios from "axios";
+import {message} from "antd";
+
 
 class Reservation extends React.Component {
     // constructor(props) {
@@ -60,7 +62,8 @@ class Reservation extends React.Component {
                     specialrequest:this.state.specialrequest              
             }
           );
-          alert("Table booked successfully");
+        //   <Alert message="able booked successfully" type="success" />
+          message.success("Table booked successfully");
           this.setState({
             FullName: "",
             email: "",
@@ -78,7 +81,7 @@ class Reservation extends React.Component {
 
     } catch(error){
         console.error("error at booking table", error);
-        alert("Something went wrong. Please try again.")
+        message.error("Something went wrong. Please try again.")
     }
    
    

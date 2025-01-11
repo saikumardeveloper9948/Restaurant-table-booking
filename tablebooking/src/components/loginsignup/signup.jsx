@@ -2,10 +2,12 @@ import { useState } from "react";
 import firebase from "../firebase/firebaseconfig/firbase_config";
 import "firebase/compat/auth";
 import { useNavigate } from "react-router-dom"; 
+import {message} from 'antd'
+// import Navbar from "../navbar/navbar";
+// import { auth } from "../firebase/firebaseconfig/firbase_config";
 
-
-const Loginsignup = () => {
-  const [isLogin, setIsLogin] = useState(false);
+const Loginsignup = ({isLogin, setIsLogin}) => {
+  // const [isLogin, setIsLogin] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -28,11 +30,14 @@ const Loginsignup = () => {
     e.preventDefault();
     try {
       await firebase.auth().sendPasswordResetEmail(formData.email);
-      alert("Password reset email sent! Check your inbox.");
+      message.success('Password reset email sent successfully')
+      // alert("Password reset email sent! Check your inbox.");
       setIsForgotPassword(false);
     } catch (error) {
       console.error("Error sending password reset email:", error);
-      alert(error.message);
+      message.error(error.message);
+    } finally{
+      setIsForgotPassword(false);
     }
   };
 
@@ -49,20 +54,22 @@ const Loginsignup = () => {
         const user = userCredential.user;
 
         if (user.emailVerified) {
-          alert("Email has been verified With successful login..!");
+          setIsLogin(true);
+          message.success("Email has been verified With successful login..!");
+          // console.log(auth)
              // Redirect to login page after verification
           navigate("/reservation",{state:{email:formData.email } } ); // Use navigate to redirect to the login page
         } else {
-          alert("Please verify your email before logging in.");
+          message.warning("Please verify your email before logging in.");
         }
       } catch (error) {
         console.error("Error logging in:", error);
-        alert("Invalid email or password.");
+        message.error("Invalid email or password.");
       }
     } else {
       // Signup logic with email verification
       if (formData.password !== formData.confirmPassword) {
-        alert("Passwords do not match!");
+        message.warning("Passwords do not match!");
         return;
       }
 
@@ -72,7 +79,7 @@ const Loginsignup = () => {
 
         if (methods.length > 0) {
           // If the email already exists, show an alert and redirect to login page
-          alert("User details already exist. Please log in.");
+          message.warning("User details already exist. Please login.");
           navigate("/login"); // Navigate to login page
           return; // Exit the function
         }
@@ -84,19 +91,24 @@ const Loginsignup = () => {
         const user = userCredential.user;
 
         await user.sendEmailVerification();
-        alert(
+        message.success(
           "Signup successful! A verification email has been sent to your email address. Please verify before logging in."
         );
         setFormData({ email: "", password: "", confirmPassword: "" });
       } catch (error) {
-        console.error("Error signing up:", error);
-        alert(error.message);
+        console.error("Error at signing up:", error);
+       
+        message.warning("Account already exists..!");
+        setIsLogin(true);
+        console.log(error.message)
       }
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen ">
+    <div>
+      {/* <Navbar/> */}
+       <div className="flex justify-center items-center min-h-screen ">
       <div className="w-full max-w-md rounded-lg shadow-md p-6 bg-gray-100 ">
         <h2 className="text-2xl font-bold text-center text-orange-500 mb-6">
           {isForgotPassword
@@ -189,7 +201,7 @@ const Loginsignup = () => {
             </button>
           ) : isLogin ? (
             <span>
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <button
                 onClick={toggleForm}
                 className="text-orange-500 hover:underline font-medium"
@@ -223,6 +235,9 @@ const Loginsignup = () => {
         <div id="recaptcha-container"></div>
       </div>
     </div>
+
+    </div>
+   
   );
 };
 

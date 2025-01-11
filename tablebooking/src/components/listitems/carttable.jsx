@@ -1,127 +1,205 @@
-import {useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import Button from "react-bootstrap/Button";
+import { useCart } from "../contextapi/cartcontext";
+import { message } from "antd";
 
+const Cart = () => {
+  const { cartItems, removeItemFromCart } = useCart(); // Get cart items from context
+  const [counts, setCounts] = useState({});
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const printRef = useRef(); // Reference to the invoice section
+  
 
+  const handleRemoveItem = (itemName) => {
+    removeItemFromCart(itemName);
+  };
 
-const Cart = ({ cartItems, handleRemoveItem }) => {
-  // State to manage count for each item
-//   const [counter, setCounter] = useState(1);
-  const [counts, setCounts] = useState(cartItems.map(() => 1));
+  // Calculate total price dynamically based on updated counts
+  const totalPrice = cartItems.reduce((total, item, index) => {
+    const itemCount = counts[index] || item.quantity;
+    return total + item.price * itemCount;
+  }, 0);
 
-      // Update counts when cartItems changes
+  // Update real-time clock
   useEffect(() => {
-    setCounts(cartItems.map(() => 1));
-  }, [cartItems]);
-
-
-//   const [CartItemsdelete, setCartItemsDelete] = useState(initialCartItems);
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer); // Clean up timer
+  }, []);
 
   // Function to handle count change for a specific item
   const handleCountChange = (index, newCount) => {
-    if (newCount == 15) {
-      alert("Can't order 1 item more than 15 pieces");
-      newCount = 15; // Set count to the maximum allowed value
-    } else if (newCount < 1) {
-      newCount = 1; // Set count to the minimum allowed value
+    if (newCount > 15) {
+      message.error("Can't order more than 15 pieces");
+      newCount = 15;
+      return;
     }
-
-    const newCounts = [...counts];
-    newCounts[index] = newCount;
-    setCounts(newCounts);
-    
-    // console.log(newCount)
-    // console.log(parseInt(e.target.value))
+    if (newCount < 1) return;
+    setCounts((prevCounts) => ({ ...prevCounts, [index]: newCount }));
   };
 
-  // Function to handle item deletion
-//   const handleDeleteItem = (index) => {
-//     const updatedCartItems = cartItems.filter((_, i) => i !== index); // Remove the item
-//     console.log(updatedCartItems);
-//     const updatedCounts = counts.filter((_, i) => i !== index); // Remove the corresponding count
-//     setCartItemsDelete(updatedCartItems);
+  const handlePrint = () => {
+    const printContent = printRef.current;
+    const originalContent = document.body.innerHTML;
 
-//         // Notify the parent component of the deletion
-//         onQuantityChange(index, null, updatedCartItems); // Pass the updated cart items to the parent
+    document.body.innerHTML = printContent.innerHTML;
+    window.print();
+    document.body.innerHTML = originalContent;
+    window.location.reload(); // Refresh the page to restore original content
+  };
 
-// // update the local state
-//     setCounts(updatedCounts);
-//   };
+  // Function to handle payment
+  const handlePayment = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/payment/create-order",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ amount: totalPrice }),
+        }
+      );
 
+      const { orderId } = await response.json();
 
+      const options = {
+        key: "rzp_test_K7NRyE8rha3ije",
+        amount: totalPrice * 100,
+        currency: "INR",
+        order_id: orderId,
+        name: "Your Shop Name",
+        description: "Payment for cart items",
+        handler: function (response) {
+          console.log(response);
+          message.success("Payment successful!");
+        },
+        prefill: {
+          name: "Your Name",
+          email: "email@example.com",
+          contact: "9876543210",
+        },
+        notes: {
+          address: "address",
+        },
+        theme: {
+          color: "#F37254",
+        },
+      };
 
-
-
-  // Calculate total price with validation
-  const totalPrice = cartItems.reduce((total, item, index) => {
-    const price = typeof item.price === "number" ? item.price : 0;
-    const count = counts[index] || 1 ;
-    return total + price * count;
-  },0);
+      const rzp1 = new window.Razorpay(options);
+      rzp1.open();
+    } catch (error) {
+      console.error("Error initiating payment:", error);
+      message.error("Error initiating payment.");
+    }
+  };
 
   return (
     <div className="container cart">
+      <div>
+        <p className="text-4xl font-bold text-center pt-10 ">
+          Eat- <span className="text-orange-500">Food</span>
+        </p>
+      </div>
       <h2>Your Cart</h2>
+      <h5>Date : {currentTime.toLocaleString()}</h5>
       <table className="container border-2">
         <thead>
           <tr>
+            <th>S.No</th>
             <th>Item</th>
             <th>Quantity</th>
             <th>Price</th>
-            {/* <th>Total</th> */}
             <th>Action</th>
           </tr>
         </thead>
-        <tbody className="border-b">
+        <tbody>
           {cartItems.map((item, index) => (
-            <tr key={index.id || index}>
+            <tr key={index}>
+              <td>{index + 1}</td>
               <td>{item.name}</td>
-              <td className="flex gap-2" >
-              <button
-              
-                  onClick={() =>
-                    handleCountChange(index, counts[index] + 1)
-                  }
-                  disabled={counts[index] === 15}
-                  className="bg-orange-500 p-2 rounded-s-full font-bold"
-                >
-            
-                + </button>
-                <h3>{counts[index]}</h3>
+              <td className="flex gap-2">
                 <button
+                  className="bg-orange-500 p-2 rounded-s-full font-bold"
                   onClick={() =>
-                    handleCountChange(index, counts[index] - 1)
+                    handleCountChange(
+                      index,
+                      (counts[index] || item.quantity) + 1
+                    )
                   }
-                  disabled={counts[index] === 1}
+                >
+                  +
+                </button>
+                <span className="text-2xl font-bold">
+                  {counts[index] || item.quantity}
+                </span>
+                <button
                   className="bg-orange-500 p-2 rounded-e-full font-bold"
+                  onClick={() =>
+                    handleCountChange(
+                      index,
+                      (counts[index] || item.quantity) - 1
+                    )
+                  }
                 >
                   -
                 </button>
-                {/* {itemcount()} */}
-                {/* <input
-                                    type="number"
-                                    value={counts[index] || 0} // Default to 1 if count is invalid
-                                    min="1"
-                                    max="15"
-                                    onChange={(e) => handleCountChange(index, parseInt(e.target.value))}
-                                /> */}
               </td>
-
-              <td>Rs.{(item.price*counts[index]).toFixed(2)}/-</td>
-              {/* <td>Rs.{(item.price * (counts[index] || 1)).toFixed(2)}/-</td>` */}
               <td>
-                <button
-                    className="bg-none border-none cursor-pointer"
-                  onClick={() => handleRemoveItem(index)}
-                >
-                  🗑️ {/* Delete icon */}
-                </button>
+                Rs.{(item.price ).toFixed(2)}
+                /-
+              </td>
+              <td>
+                <button onClick={() => handleRemoveItem(item.name)}>🗑️</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
       <h3 className="text-right">Total Price: Rs.{totalPrice.toFixed(2)}/-</h3>
+      <div className="flex justify-center gap-4 py-14">
+        <Button variant="warning" onClick={handlePayment}>
+          Order Now
+        </Button>
+        <Button variant="warning" onClick={handlePrint}>
+          Download Invoice
+        </Button>
+      </div>
+
+      {/* Hidden Invoice Section */}
+      <div style={{ display: "none" }}>
+        <div ref={printRef}>
+          <h2>Invoice</h2>
+          <p>Date: {currentTime.toLocaleString()}</p>
+          <table className="container border-2">
+            <thead>
+              <tr>
+                <th>S.No</th>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartItems.map((item, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{item.name}</td>
+                  <td>{counts[index] || item.quantity}</td>
+                  <td>
+                    Rs.{(item.price * (counts[index] || item.quantity)).toFixed(2)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <h3>Total Price: Rs.{totalPrice.toFixed(2)}/-</h3>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default Cart;
+
