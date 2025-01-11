@@ -36,7 +36,7 @@ const Navbar = () => {
 
         {/* Menu Section */}
         <div className="flex gap-4">
-          <div className="flex justify-center items-center gap-6">
+          <div className="flex justify-center items-center gap-3  ">
             {/* Hamburger Icon for Small Screens */}
             <FiMenu
               onClick={toggleMenu}
@@ -47,7 +47,7 @@ const Navbar = () => {
             <ul
               className={`gap-8 ${
                 isMenuVisible
-                  ? "flex flex-col absolute top-16 right-0 p-4 "
+                  ? "flex flex-col absolute top-16 right-0 p-4  bg-white rounder-lg "
                   : "hidden"
               } sm:flex sm:flex-row sm:relative sm:top-0 sm:bg-transparent sm:shadow-none`}
             >
