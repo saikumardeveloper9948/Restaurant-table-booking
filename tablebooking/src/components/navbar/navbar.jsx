@@ -55,7 +55,7 @@ const Navbar = () => {
                 onClick={() => {
                   handleMenuItemClick("/home");
                 }}
-                className="hover:shadow-lg p-2 rounded uppercase cursor-pointer m-2 font-semibold hover:bg-orange-500 hover:text-white border-y-2 border-orange-500 animate-border"
+                className="hover:shadow-lg p-2  rounded uppercase cursor-pointer m-2 font-semibold hover:bg-orange-500 hover:text-white border-y-2 border-orange-500 animate-border"
               >
                 HOME
               </li>
