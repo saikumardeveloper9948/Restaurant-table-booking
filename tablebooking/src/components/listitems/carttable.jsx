@@ -170,7 +170,13 @@ const Cart = () => {
       {/* Hidden Invoice Section */}
       <div style={{ display: "none" }}>
         <div ref={printRef}>
-          <h2>Invoice</h2>
+         
+          <div>
+        <p className="text-4xl font-bold text-center pt-10 ">
+          Eat- <span className="text-orange-500">Food</span>
+        </p>
+      </div>
+      <h2>Invoice</h2>
           <p>Date: {currentTime.toLocaleString()}</p>
           <table className="container border-2">
             <thead>

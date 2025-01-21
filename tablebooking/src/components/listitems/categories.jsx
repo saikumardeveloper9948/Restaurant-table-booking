@@ -47,7 +47,7 @@ const Categories = () => {
         placeholder="Search for food items..."
         value={searchQuery}
         onChange={handleSearchChange}
-        className="form-control mb-4 px-10 container"
+        className="form-control mb-4 px-15 container shadow-black "
       />
 
       {filteredFoodItems.length > 0 ? (
@@ -55,7 +55,7 @@ const Categories = () => {
           {filteredFoodItems.map((item, index) => (
             <div key={index} className="py-2">
               <Card className="w-auto h-auto max-w-xs rounded-3xl hover:scale-110 transition duration-150 cursor-pointer" style={{ width: '18rem', height: "22rem" }}>
-                <Card.Img variant="top" src={item.image} className="h-36 w-auto p-0" />
+                <Card.Img variant="top" src={item.image} className="h-36 w-35 p-0" />
                 <Card.Body>
                   <Card.Title>{item.name}</Card.Title>
                   <Card.Text>{item.rating}</Card.Text>

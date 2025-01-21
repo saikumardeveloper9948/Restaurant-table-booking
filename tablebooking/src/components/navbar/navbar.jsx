@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { FiMenu } from "react-icons/fi"; // Import FiMenu for the hamburger icon
-// import Cart from '../listitems/carttable';
-
 import { useNavigate } from "react-router-dom";
 import { FaCartPlus } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
+import { useCart } from "../contextapi/cartcontext";
+
 // import UserProfile from "../profile/profile"
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { getTotalQuantity } = useCart();
 
   // State to manage menu visibility on small screens
   const [isMenuVisible, setIsMenuVisible] = useState(false);
-  // const [isCartVisible, setIsCartVisible] = useState(false);
 
   // Toggle menu visibility
   const toggleMenu = () => {
@@ -87,15 +87,20 @@ const Navbar = () => {
                 onClick={() => {
                   handleMenuItemClick("/cart");
                 }}
-                className="hover:shadow-lg p-2 rounded uppercase cursor-pointer font-semibold hover:bg-orange-500 hover:text-white text-3xl m-2   animate-border"
+                className="hover:shadow-lg p-2 rounded uppercase cursor-pointer font-semibold hover:bg-orange-500 hover:text-white text-3xl m-2 flex animate-border group"
               >
                 <FaCartPlus />
+                {getTotalQuantity() > 0 && (
+                  <sup className="text-red-500 mt-3 group-hover:text-white">
+                    {getTotalQuantity()}
+                  </sup>
+                )}
               </li>
             </ul>
           </div>
 
           <div
-            className="hover:shadow-lg p-2 rounded   uppercase cursor-pointer font-semibold hover:bg-orange-500 hover:text-white text-3xl  h-12 "
+            className="hover:shadow-lg p-2 rounded   uppercase cursor-pointer font-semibold hover:bg-orange-500 hover:text-white text-3xl  h-12  my-2"
             onClick={() => {
               handleMenuItemClick("./profile");
             }}

@@ -30,7 +30,7 @@ const Hero = ({ isLogin }) => {
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-start">
             Delicious Food Is Waiting For You
           </h1>
-          <p className="font-semibold text-purple-700 text-left">
+          <p className="font-semibold text-black text-left">
             We are offering a combination of flavors, textures, and aromas that can evoke happiness and comfort. From the rich, savory taste of a well-cooked steak to the sweet, indulgent bite of a freshly baked dessert, delicious food has the power to bring people together and create lasting memories.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 items-center justify-center sm:justify-start">

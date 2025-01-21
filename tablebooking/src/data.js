@@ -111,7 +111,7 @@ export const foodItems = [
       },
       {
         name: "Fish Curry",
-        image: "https://www.priyom.in/wp-content/uploads/2022/05/recipe-3-480x270.png",
+        image: "https://png.pngtree.com/png-vector/20231018/ourmid/pngtree-steamed-fish-with-curry-paste-thai-food-png-image_10206769.png",
         rating: "⭐⭐⭐⭐✰",
         description: "Fish cooked in a tangy, spicy curry and served with rice",
         price: 320,
