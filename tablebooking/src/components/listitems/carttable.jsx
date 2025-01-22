@@ -49,7 +49,7 @@ const Cart = () => {
   const handlePayment = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/payment/create-order",
+        "https://restaurant-table-booking-gcfi-eight.vercel.app/api/payment/create-order",
         {
           method: "POST",
           headers: {
