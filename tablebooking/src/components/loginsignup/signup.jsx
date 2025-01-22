@@ -3,8 +3,6 @@ import firebase from "../firebase/firebaseconfig/firbase_config";
 import "firebase/compat/auth";
 import { useNavigate } from "react-router-dom"; 
 import {message} from 'antd'
-// import Navbar from "../navbar/navbar";
-// import { auth } from "../firebase/firebaseconfig/firbase_config";
 
 const Loginsignup = ({isLogin, setIsLogin}) => {
   // const [isLogin, setIsLogin] = useState(false);

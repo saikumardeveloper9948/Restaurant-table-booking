@@ -1,24 +1,26 @@
-// server.js
+
 const express = require('express');
 const Razorpay = require('razorpay');
 const cors = require('cors');
-// const bodyParser = require('body-parser');
+ require("dotenv").config()
+
+
 
 const app = express();
-const port = 5000; // You can use any port
+const port = 5001; 
 
-// Razorpay instance with your keys
+
 const razorpay = new Razorpay({
-  key_id: "rzp_test_K7NRyE8rha3ije",
-  key_secret:"WJW6xRqIfl2bXHp2CFDpYb0E",
+  key_id: process.env.key_id,
+  key_secret:process.env.key_secret,
 });
 
-app.use(cors()); // Enable CORS for frontend to access this API
-app.use(express.json()); // To parse JSON request bodies
+app.use(cors()); 
+app.use(express.json());
 
-// Route to create Razorpay order
+
 app.post('/api/payment/create-order', async (req, res) => {
-  const { amount } = req.body; // Amount in rupees
+  const { amount } = req.body; 
 
   try {
     const order = await razorpay.orders.create({

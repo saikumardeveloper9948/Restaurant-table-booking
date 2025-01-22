@@ -1,10 +1,19 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { message } from "antd";
 import firebase from "../firebase/firebaseconfig/firbase_config";
 import { auth } from "../firebase/firebaseconfig/firbase_config";
 
+
 const UserProfile = () => {
   const navigate = useNavigate();
+  const user = auth.currentUser;
+
+  useEffect(()=>{
+    if(!user){
+      navigate("/signup")
+    }
+  },[user, navigate])
   
   // Logout functionality
   const handleLogout = async () => {
@@ -17,7 +26,10 @@ const UserProfile = () => {
       message.error("An error occurred during logout.");
     }
   };
-  const user = auth.currentUser;
+  
+  if(!user){
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -26,18 +38,16 @@ const UserProfile = () => {
           User Profile
         </h1>
 
-        {/* Display email */}
+ 
         <div className="mb-4">
-          {user ? (
+          
             <p className="text-orange-500 text-center text-sm">
               Email: {user.email}
             </p>
-          ) : (
-            <p className="text-red-600 text-center"> No user logged in*</p>
-          )}
+        
         </div>
 
-        {/* Logout button */}
+    
         {user && (
           <button
             onClick={handleLogout}

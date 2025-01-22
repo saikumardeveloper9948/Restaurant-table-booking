@@ -68,7 +68,7 @@ const Cart = () => {
         amount: totalPrice * 100,
         currency: "INR",
         order_id: orderId,
-        name: "Your Shop Name",
+        name: "Eat-Food Restaurant",
         description: "Payment for cart items",
         handler: function (response) {
           console.log(response);
@@ -90,8 +90,8 @@ const Cart = () => {
       const rzp1 = new window.Razorpay(options);
       rzp1.open();
     } catch (error) {
-      console.error("Error initiating payment:", error);
-      message.error("Error initiating payment.");
+      // console.error("Error initiating payment:", error);
+      message.error("Error initiating payment.", error);
     }
   };
 

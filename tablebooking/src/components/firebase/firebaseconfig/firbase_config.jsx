@@ -6,23 +6,21 @@ import { initializeApp } from "firebase/app";
 
 
 import firebase from "firebase/compat/app";
-import "firebase/compat/auth"; // For authentication
+import "firebase/compat/auth"; 
 import "firebase/compat/database"; 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
+
 const firebaseConfig = {
-  apiKey: "AIzaSyB6QmyIW5fqnzmxelznGSeN5vpP-RMfa-M",
-  authDomain: "signup-login-data-a4f69.firebaseapp.com",
-  databaseURL: "https://signup-login-data-a4f69-default-rtdb.firebaseio.com",
-  projectId: "signup-login-data-a4f69",
-  storageBucket: "signup-login-data-a4f69.firebasestorage.app",
-  messagingSenderId: "110772202850",
-  appId: "1:110772202850:web:584207fbeeb34c1ffb903b"
+  apiKey: import.meta.env.VITE_APP_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_APP_FIREBASE_DATABASE_URL,
+  projectId: import.meta.env.VITE_APP_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId:import.meta.env.VITE_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_FIREBASE_APP_ID
 };
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 
 if (!firebase.apps.length) {
