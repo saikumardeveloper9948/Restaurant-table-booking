@@ -18,7 +18,7 @@ const AboutPage = () => {
         </header>
 
         <main style={bgStyle} className="w-full container-fluid py-10 space-y-8 ">
-          {/* Our Story Section */}
+         
           <section className="bg-white shadow-md rounded-lg px-10 py-3  custom-section">
             <h2 className="text-2xl font-semibold text-orange-500">Our Story</h2>
             <p className="mt-4 text-gray-700">
@@ -28,7 +28,7 @@ const AboutPage = () => {
             </p>
           </section>
 
-          {/* Why Choose Us Section */}
+        
           <section className="bg-white shadow-md rounded-lg px-10 py-3 mx-60 custom-section">
             <h2 className="text-2xl font-semibold text-orange-500">Why Choose Us?</h2>
             <ul className="mt-4 list-disc list-inside text-gray-700 space-y-2">
@@ -39,7 +39,7 @@ const AboutPage = () => {
             </ul>
           </section>
 
-          {/* Mission Section */}
+        
           <section className="bg-white shadow-md rounded-lg px-10 py-3 mx-60 custom-section">
             <h2 className="text-2xl font-semibold text-orange-500">Our Mission</h2>
             <p className="mt-4 text-gray-700">
@@ -48,7 +48,7 @@ const AboutPage = () => {
             </p>
           </section>
 
-          {/* Meet the Team Section */}
+     
           <section className="bg-white shadow-md rounded-lg px-10 py-3 mx-60 custom-section">
             <h2 className="text-2xl font-semibold text-orange-500">Meet the Team</h2>
             <p className="mt-4 text-gray-700">

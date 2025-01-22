@@ -1,5 +1,3 @@
-// src/components/PageNotFound.jsx
-
 import { Link } from "react-router-dom";
 
 const PageNotFound = () => {
@@ -11,12 +9,9 @@ const PageNotFound = () => {
       }}
     >
       <div className="bg-white/75 p-8 rounded-xl shadow-lg text-center">
-        {/* Animated "404" */}
         <h1 className="text-9xl font-bold text-red-500 animate-bounce">
           404
         </h1>
-
-        {/* Description */}
         <h2 className="text-4xl font-semibold text-red-500 mt-6">
           Page Not Found
         </h2>
@@ -24,7 +19,7 @@ const PageNotFound = () => {
           Oops! The page you're looking for doesn't exist.
         </p>
 
-        {/* Back to Home Button */}
+       
         <Link
           to="/"
           className="mt-8 inline-block bg-orange-400 text-white px-6 py-3 text-lg font-medium rounded shadow hover:bg-orange-600 transition duration-300"

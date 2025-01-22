@@ -25,7 +25,7 @@ const bgStyle = {
 };
 
 const App = () => {
-  const [isLogin, setIsLogin] = useState(false); // Lifted state
+  const [isLogin, setIsLogin] = useState(false); 
 
   return (
     <CartProvider>

@@ -1,6 +1,5 @@
-// export default Categories;
 import { useState } from "react";
-import { useCart } from "../contextapi/cartcontext"; // Import the useCart hook
+import { useCart } from "../contextapi/cartcontext";
 import { Button, Card, Modal } from "react-bootstrap";
 import { foodItems } from "../../data";
 import Services from "../Services/services";
@@ -9,24 +8,20 @@ const Categories = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
-  const { addItemToCart } = useCart(); // Access context
+  const { addItemToCart } = useCart();
 
-  // Handle search input change
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
 
-  // Add item to cart
   const handleAddItem = (item) => {
     addItemToCart(item);
     setModalMessage("Item added to cart!");
     setShowModal(true);
   };
 
-  // Close modal
   const handleCloseModal = () => setShowModal(false);
 
-  // Filter food items based on search query
   const filteredFoodItems = foodItems.flatMap((category) =>
     category.items.filter((item) =>
       item.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -40,7 +35,6 @@ const Categories = () => {
           Choose What's In Your Mind
         </h2>
 
-        {/* Search Input */}
         <input
           type="text"
           placeholder="Search for food items..."
@@ -81,7 +75,6 @@ const Categories = () => {
           <p>No food items found.</p>
         )}
 
-        {/* Modal for feedback */}
         <Modal show={showModal} onHide={handleCloseModal}>
           <Modal.Header closeButton>
             <Modal.Title>Cart Update</Modal.Title>

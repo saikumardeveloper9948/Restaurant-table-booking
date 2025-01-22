@@ -25,7 +25,7 @@ const Hero = ({ isLogin }) => {
     <div className="container px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 min-h-[600px] pb-5">
         
-        {/* Text Section */}
+      
         <div className="flex flex-col justify-center gap-7 text-center md:text-left pt-24 pb-10 md:p-0">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-start">
             Delicious Food Is Waiting For You
@@ -43,7 +43,7 @@ const Hero = ({ isLogin }) => {
           </div>
         </div>
 
-        {/* Image Section */}
+      
         <div className="flex flex-col justify-center">
           <Carousel className="flex flex-col justify-center mx-auto">
             <Carousel.Item>

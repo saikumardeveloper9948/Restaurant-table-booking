@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import {message} from 'antd'
 
 const Loginsignup = ({isLogin, setIsLogin}) => {
-  // const [isLogin, setIsLogin] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -29,7 +28,6 @@ const Loginsignup = ({isLogin, setIsLogin}) => {
     try {
       await firebase.auth().sendPasswordResetEmail(formData.email);
       message.success('Password reset email sent successfully')
-      // alert("Password reset email sent! Check your inbox.");
       setIsForgotPassword(false);
     } catch (error) {
       console.error("Error sending password reset email:", error);
@@ -43,7 +41,6 @@ const Loginsignup = ({isLogin, setIsLogin}) => {
     e.preventDefault();
 
     if (isLogin) {
-      // Login logic using Firebase Authentication
       try {
         const userCredential = await firebase
           .auth()
@@ -53,10 +50,8 @@ const Loginsignup = ({isLogin, setIsLogin}) => {
 
         if (user.emailVerified) {
           setIsLogin(true);
-          message.success("Email has been verified With successful login..!");
-          // console.log(auth)
-             // Redirect to login page after verification
-          navigate("/reservation",{state:{email:formData.email } } ); // Use navigate to redirect to the login page
+          message.success("Email has been verified With successful login..!")
+          navigate("/reservation" ); 
         } else {
           message.warning("Please verify your email before logging in.");
         }
@@ -65,7 +60,6 @@ const Loginsignup = ({isLogin, setIsLogin}) => {
         message.error("Invalid email or password.");
       }
     } else {
-      // Signup logic with email verification
       if (formData.password !== formData.confirmPassword) {
         message.warning("Passwords do not match!");
         return;
@@ -76,12 +70,10 @@ const Loginsignup = ({isLogin, setIsLogin}) => {
         const methods = await firebase.auth().fetchSignInMethodsForEmail(formData.email);
 
         if (methods.length > 0) {
-          // If the email already exists, show an alert and redirect to login page
           message.warning("User details already exist. Please login.");
-          navigate("/login"); // Navigate to login page
-          return; // Exit the function
+          navigate("/login"); 
+          return;
         }
-            // If the email does not exist, proceed with sign-up
         const userCredential = await firebase
           .auth()
           .createUserWithEmailAndPassword(formData.email, formData.password);
@@ -105,7 +97,7 @@ const Loginsignup = ({isLogin, setIsLogin}) => {
 
   return (
     <div>
-      {/* <Navbar/> */}
+     
        <div className="flex justify-center items-center min-h-screen ">
       <div className="w-full max-w-md rounded-lg shadow-md p-6 bg-gray-100 ">
         <h2 className="text-2xl font-bold text-center text-orange-500 mb-6">

@@ -32,12 +32,10 @@ const fooddata = [
 const Items = () => {
   return (
     <div className="container py-14">
-      {/* header section */}
       <div className="text-center mb-12">
         <h1 className="text-4xl font-semibold">Top List</h1>
-        {/* <p>Our top list</p> */}
       </div>
-      {/* card section */}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {fooddata.map((a, b) => {
           return (
@@ -45,12 +43,16 @@ const Items = () => {
               key={b}
               className="bg-white/50 rounded-3xl p-3 hover:scale-110 transition duration-150 cursor-pointer"
             >
-              <img src={a.image} alt="image" className="w-48 h-48 mx-auto object-cover rounded-full img-shadow " />
+              <img
+                src={a.image}
+                alt="image"
+                className="w-48 h-48 mx-auto object-cover rounded-full img-shadow "
+              />
               <div className="space-y-2">
-              <p className="">{a.rating}</p>
-              <h2 className="text-2xl font-semibold">{a.name}</h2>
-              <p>{a.desc}</p>
-              <h4 className="text-lg font-semibold">{a.price}</h4>
+                <p className="">{a.rating}</p>
+                <h2 className="text-2xl font-semibold">{a.name}</h2>
+                <p>{a.desc}</p>
+                <h4 className="text-lg font-semibold">{a.price}</h4>
               </div>
             </div>
           );

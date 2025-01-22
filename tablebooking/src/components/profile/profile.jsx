@@ -4,30 +4,28 @@ import { message } from "antd";
 import firebase from "../firebase/firebaseconfig/firbase_config";
 import { auth } from "../firebase/firebaseconfig/firbase_config";
 
-
-const UserProfile = () => {
+  const UserProfile = () => {
   const navigate = useNavigate();
   const user = auth.currentUser;
 
-  useEffect(()=>{
-    if(!user){
-      navigate("/signup")
+  useEffect(() => {
+    if (!user) {
+      navigate("/signup");
     }
-  },[user, navigate])
-  
-  // Logout functionality
+  }, [user, navigate]);
+
   const handleLogout = async () => {
     try {
       await firebase.auth().signOut();
       message.success("You have logged out!");
-      navigate("/signup"); // Redirect to signup/login page after logout
+      navigate("/signup");
     } catch (error) {
       console.error("Error during logout:", error);
       message.error("An error occurred during logout.");
     }
   };
-  
-  if(!user){
+
+  if (!user) {
     return null;
   }
 
@@ -38,16 +36,12 @@ const UserProfile = () => {
           User Profile
         </h1>
 
- 
         <div className="mb-4">
-          
-            <p className="text-orange-500 text-center text-sm">
-              Email: {user.email}
-            </p>
-        
+          <p className="text-orange-500 text-center text-sm">
+            Email: {user.email}
+          </p>
         </div>
 
-    
         {user && (
           <button
             onClick={handleLogout}

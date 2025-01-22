@@ -12,7 +12,6 @@ const Services = () => {
   return (
     <div className=" bg-gray-800 text-white">
       <div className="container py-5">
-        {/* header section */}
         <div className=" ">
           <h1 className="text-4xl font-bold">
             Eat-<span className="text-orange-500">Food</span>
@@ -31,7 +30,7 @@ const Services = () => {
           <FaTwitterSquare className="w-10 h-10" />
           <FaSquareWhatsapp className="w-10 h-10" />
         </div>
-        {/* icons section */}
+
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 mt-10 ">
           <div className="flex justify-center items-center gap-3 cursor-pointer">
             <FaMobileAlt className="text-2xl" />
@@ -51,7 +50,7 @@ const Services = () => {
           </div>
         </div>
       </div>
-      {/* Footer */}
+
       <footer className="w-full bg-gray-800 text-white text-center py-4 ">
         <p>
           Copyright © {new Date().getFullYear()}Table reservation. All rights

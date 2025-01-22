@@ -1,8 +1,8 @@
 import { MdOutlineMail } from "react-icons/md";
 import { FiPhoneCall } from "react-icons/fi";  
 import { IoRestaurantOutline } from "react-icons/io5"; 
-import axios from "axios"; // Import axios for making HTTP requests
-import { useState } from "react"; // Import useState for form state management
+import axios from "axios";
+import { useState } from "react"; 
 import Services from "../Services/services";
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -11,7 +11,7 @@ const ContactPage = () => {
     message: "",
   });
 
-  // Handle form input changes
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -20,12 +20,12 @@ const ContactPage = () => {
     });
   };
 
-  // Handle form submission
+
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault(); 
 
     try {
-      // Send data to Firebase Realtime Database
+     
       const response = await axios.post(
         "https://signup-login-data-a4f69-default-rtdb.firebaseio.com/support.json",
         formData
@@ -33,7 +33,7 @@ const ContactPage = () => {
 
       console.log("Data submitted successfully:", response.data);
 
-      // Reset form after submission
+      
       setFormData({
         name: "",
         email: "",
@@ -51,7 +51,7 @@ const ContactPage = () => {
 
     <div>
     <div className="bg-gray-100 min-h-screen flex flex-col items-center">
-      {/* Header */}
+     
       <header className="bg-orange-500 text-white w-full py-10 text-center">
         <h1 className="text-4xl font-bold">Contact Us</h1>
         <p className="text-lg mt-2">
@@ -59,13 +59,13 @@ const ContactPage = () => {
         </p>
       </header>
 
-      {/* Main Content */}
+     
       <main className="w-full max-w-4xl px-6 py-10 space-y-8">
-        {/* Contact Form Section */}
+        
         <section className="bg-white shadow-md rounded-lg p-6">
           <h2 className="text-2xl font-semibold text-orange-500">Send Us a Message</h2>
           <form className="mt-4 space-y-6" onSubmit={handleSubmit}>
-            {/* Name Field */}
+          
             <div>
               <label htmlFor="name" className="block text-gray-700 font-medium">
                 Your Name
@@ -82,7 +82,7 @@ const ContactPage = () => {
               />
             </div>
 
-            {/* Email Field */}
+            
             <div>
               <label htmlFor="email" className="block text-gray-700 font-medium">
                 Email Address
@@ -99,7 +99,7 @@ const ContactPage = () => {
               />
             </div>
 
-            {/* Message Field */}
+           
             <div>
               <label htmlFor="message" className="block text-gray-700 font-medium">
                 Your Message
@@ -116,7 +116,7 @@ const ContactPage = () => {
               ></textarea>
             </div>
 
-            {/* Submit Button */}
+        
             <button
               type="submit"
               className="w-full bg-orange-500 text-white font-bold py-3 rounded-lg hover:bg-orange-600 transition"
@@ -126,7 +126,7 @@ const ContactPage = () => {
           </form>
         </section>
 
-        {/* Contact Details Section */}
+       
         <section className="bg-white shadow-md rounded-lg p-6">
           <h2 className="text-2xl font-semibold text-orange-500">Contact Details</h2>
           <div className="mt-4 space-y-4">

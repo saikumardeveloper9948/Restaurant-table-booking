@@ -5,45 +5,37 @@ import { FaCartPlus } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { useCart } from "../contextapi/cartcontext";
 
-// import UserProfile from "../profile/profile"
-
 const Navbar = () => {
   const navigate = useNavigate();
   const { getTotalQuantity } = useCart();
 
-  // State to manage menu visibility on small screens
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
-  // Toggle menu visibility
   const toggleMenu = () => {
     setIsMenuVisible(!isMenuVisible);
   };
-  // Close menu when a menu item is clicked
+
   const handleMenuItemClick = (path) => {
-    setIsMenuVisible(false); // Close the menu
-    navigate(path); // Navigate to the selected path
+    setIsMenuVisible(false);
+    navigate(path);
   };
 
   return (
     <div className="sticky top-0   py-1 bg-lime-100 z-50 shadow-md">
       <div className="container flex justify-between items-center ">
-        {/* Logo Section */}
         <div>
           <p className="text-4xl font-bold ">
             Eat- <span className="text-orange-500">Food</span>
           </p>
         </div>
 
-        {/* Menu Section */}
         <div className="flex gap-4">
           <div className="flex justify-center items-center gap-3  ">
-            {/* Hamburger Icon for Small Screens */}
             <FiMenu
               onClick={toggleMenu}
               className="sm:hidden cursor-pointer text-5xl bg-saffron p-2 rounded-md text-white"
             />
 
-            {/* Menu Items */}
             <ul
               className={`gap-8 ${
                 isMenuVisible

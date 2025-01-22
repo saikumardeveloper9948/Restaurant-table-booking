@@ -4,29 +4,27 @@ import { useCart } from "../contextapi/cartcontext";
 import { message } from "antd";
 
 const Cart = () => {
-  const { cartItems, removeItemFromCart } = useCart(); // Get cart items from context
+  const { cartItems, removeItemFromCart } = useCart();
   const [counts, setCounts] = useState({});
   const [currentTime, setCurrentTime] = useState(new Date());
-  const printRef = useRef(); // Reference to the invoice section
-  
+  const printRef = useRef();
 
   const handleRemoveItem = (itemName) => {
     removeItemFromCart(itemName);
   };
 
-  // Calculate total price dynamically based on updated counts
+  
   const totalPrice = cartItems.reduce((total, item, index) => {
     const itemCount = counts[index] || item.quantity;
     return total + item.price * itemCount;
   }, 0);
 
-  // Update real-time clock
+
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
-    return () => clearInterval(timer); // Clean up timer
+    return () => clearInterval(timer); 
   }, []);
 
-  // Function to handle count change for a specific item
   const handleCountChange = (index, newCount) => {
     if (newCount > 15) {
       message.error("Can't order more than 15 pieces");
@@ -44,14 +42,14 @@ const Cart = () => {
     document.body.innerHTML = printContent.innerHTML;
     window.print();
     document.body.innerHTML = originalContent;
-    window.location.reload(); // Refresh the page to restore original content
+    window.location.reload(); 
   };
 
-  // Function to handle payment
+
   const handlePayment = async () => {
     try {
       const response = await fetch(
-        "https://restaurant-table-booking-6c2i.vercel.app/api/payment/create-order",
+        "http://localhost:5000/api/payment/create-order",
         {
           method: "POST",
           headers: {
@@ -75,9 +73,9 @@ const Cart = () => {
           message.success("Payment successful!");
         },
         prefill: {
-          name: "Your Name",
-          email: "email@example.com",
-          contact: "9876543210",
+          name: "Bandi Saikumar",
+          email: "bandisaikumar9948@gmail.com",
+          contact: "9948638817",
         },
         notes: {
           address: "address",
@@ -90,8 +88,8 @@ const Cart = () => {
       const rzp1 = new window.Razorpay(options);
       rzp1.open();
     } catch (error) {
-      // console.error("Error initiating payment:", error);
-      message.error("Error initiating payment.", error);
+      console.error("Error initiating payment:", error);
+      message.error("Error initiating payment.");
     }
   };
 
@@ -147,7 +145,7 @@ const Cart = () => {
                 </button>
               </td>
               <td>
-                Rs.{(item.price ).toFixed(2)}
+                Rs.{item.price.toFixed(2)}
                 /-
               </td>
               <td>
@@ -167,16 +165,14 @@ const Cart = () => {
         </Button>
       </div>
 
-      {/* Hidden Invoice Section */}
       <div style={{ display: "none" }}>
         <div ref={printRef}>
-         
           <div>
-        <p className="text-4xl font-bold text-center pt-10 ">
-          Eat- <span className="text-orange-500">Food</span>
-        </p>
-      </div>
-      <h2>Invoice</h2>
+            <p className="text-4xl font-bold text-center pt-10 ">
+              Eat- <span className="text-orange-500">Food</span>
+            </p>
+          </div>
+          <h2>Invoice</h2>
           <p>Date: {currentTime.toLocaleString()}</p>
           <table className="container border-2">
             <thead>
@@ -194,7 +190,8 @@ const Cart = () => {
                   <td>{item.name}</td>
                   <td>{counts[index] || item.quantity}</td>
                   <td>
-                    Rs.{(item.price * (counts[index] || item.quantity)).toFixed(2)}
+                    Rs.
+                    {(item.price * (counts[index] || item.quantity)).toFixed(2)}
                   </td>
                 </tr>
               ))}
@@ -208,4 +205,3 @@ const Cart = () => {
 };
 
 export default Cart;
-
